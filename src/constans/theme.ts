@@ -9,3 +9,9 @@ export const COLORS = {
     success: 'green',
     danger: 'lightgray',
 }
+
+export const MARGIN = {
+    marginContainer: 30,
+    marginTitle: 20,
+    marginSubtitle: 10,
+}
