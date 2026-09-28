@@ -1,11 +1,11 @@
 export const COLORS = {
     primary: "mediumlateblue",
-    background: "whitesmoke",
+    background: "tomato",
     card: "white",
     text: 'black',
     border: 'lightgray',
     textLight: 'gray',
 
     success: 'green',
-    danger: 'crinson',
+    danger: 'lightgray',
 }
