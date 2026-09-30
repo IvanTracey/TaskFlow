@@ -1,7 +1,5 @@
 import { View, Text, Image, StyleSheet } from "react-native"
-import { COLORS, MARGIN } from "../constans/theme"
-import {TouchableOpacity, TextInput } from "react-native"
-import { useState } from "react"
+import { COLORS, MARGIN } from "../constants/theme"
 
 type Props = {
     name: string;

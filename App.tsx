@@ -1,5 +1,5 @@
-import { ProfileScreen } from "./src/screen/ProfileScreen";
-import { HomeScreen } from "./src/screen/HomeScreen";
+import { ProfileScreen } from "./src/screens/ProfileScreen";
+import { HomeScreen } from "./src/screens/HomeScreen";
 
 export default function App() {
   return <ProfileScreen/>

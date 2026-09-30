@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from "react-native"
-import { COLORS, MARGIN } from "../constans/theme"
+import { COLORS, MARGIN } from "../constants/theme"
 import { ProfileCard } from "../components/ProfileCards"
 
 export function ProfileScreen(){

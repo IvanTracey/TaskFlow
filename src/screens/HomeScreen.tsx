@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from "react-native"
-import { COLORS } from "../constans/theme"
+import { COLORS } from "../constants/theme"
 
 export function HomeScreen(){
   return (
