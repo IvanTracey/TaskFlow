@@ -1,7 +1,6 @@
 import { View, Text, StyleSheet } from "react-native"
 import { COLORS, MARGIN } from "../constans/theme"
 import { ProfileCard } from "../components/ProfileCards"
-import { HomeScreen } from "./HomeScreen"
 
 export function ProfileScreen(){
     return(
@@ -41,10 +40,5 @@ const styles = StyleSheet.create({
         color: COLORS.text,
         marginBottom: MARGIN.marginTitle,
         alignSelf: 'center'
-    },
-    subtitle: {
-        fontSize: 20,
-        color: COLORS.text,
-        margin: MARGIN.marginSubtitle,
     },
 })

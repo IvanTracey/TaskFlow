@@ -3,7 +3,7 @@ export const COLORS = {
     background: "tomato",
     card: "white",
     text: 'black',
-    border: 'lightgray',
+    border: 'black',
     textLight: 'gray',
 
     success: 'green',
@@ -13,5 +13,4 @@ export const COLORS = {
 export const MARGIN = {
     marginContainer: 30,
     marginTitle: 20,
-    marginSubtitle: 10,
 }
