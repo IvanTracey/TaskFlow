@@ -13,7 +13,7 @@ export default function TaskForm() {
 
   //Funcion de validacion
   const validateForm = ()  => {
-    if (title.trim().length < 3 || description.trim().length < 5) {
+    if (title.trim().length < 5 || description.trim().length < 10) {
       return; //detiene la funcion, da un undefined
     }
   }
@@ -24,7 +24,7 @@ export default function TaskForm() {
     setTouchedDescription(true);
 
     validateForm();
-    
+
     // Creacion del objeto "Tarea"
     const task = {
       title: title.trim(), 
@@ -44,10 +44,10 @@ export default function TaskForm() {
   };
 
 // titleError será true SOLO si el usuario ya tocó el título Y ADEMÁS el texto tiene menos de 3 letras
-  const titleError = touchedTitle && title.trim().length < 3;
+  const titleError = touchedTitle && title.trim().length < 5;
 
 // descriptionError será true SOLO si el usuario ya tocó la descripción Y ADEMÁS tiene menos de 5 letras
-  const descriptionError = touchedDescription && description.trim().length < 5;
+  const descriptionError = touchedDescription && description.trim().length < 10;
   
   return (
     <KeyboardAvoidingView style={styles.container}>
@@ -73,7 +73,7 @@ export default function TaskForm() {
     {/* Si titleError es true, dibuja en la pantalla el siguiente texto de error */}
       {titleError && (//le avisan a react que es un bloque de codigo.
         <Text style={styles.error}>
-          El título debe tener al menos 3 caracteres.
+          El título debe tener al menos 5 caracteres.
         </Text>
       )}
 
@@ -91,7 +91,7 @@ export default function TaskForm() {
 
       {descriptionError && (
         <Text style={styles.error}>
-          La descripción debe tener al menos 5 caracteres.
+          La descripción debe tener al menos 10 caracteres.
         </Text>
       )}
 
