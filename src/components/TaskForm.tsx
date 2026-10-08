@@ -11,17 +11,20 @@ export default function TaskForm() {
   const [touchedTitle, setTouchedTitle] = useState(false);
   const [touchedDescription, setTouchedDescription] = useState(false);
 
+  //Funcion de validacion
+  const validateForm = ()  => {
+    if (title.trim().length < 3 || description.trim().length < 5) {
+      return; //detiene la funcion, da un undefined
+    }
+  }
   // Funcion al presionar boton "Guardar"
-  
   const handleAddTask = () => {
   //Seteo en "Presionados" los estados para activar los errores visuales si están vacíos
     setTouchedTitle(true); 
     setTouchedDescription(true);
 
-    // Validaciones 
-    if (title.trim().length < 3 || description.trim().length < 5) {
-      return; //detiene la funcion, da un undefined
-    }
+    validateForm();
+    
     // Creacion del objeto "Tarea"
     const task = {
       title: title.trim(), 
