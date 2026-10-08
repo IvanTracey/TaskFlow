@@ -2,24 +2,27 @@ import { useState } from 'react';
 import { Alert, KeyboardAvoidingView, StyleSheet, Text, TextInput,TouchableOpacity, View } from 'react-native';
 
 export default function TaskForm() {
+  // Creacion de estados para la informacion del formulario
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('Trabajo');
 
-  // Para mostrar errores después de interactuar
+  // Estados como flags, para saber si salgo del campo
   const [touchedTitle, setTouchedTitle] = useState(false);
   const [touchedDescription, setTouchedDescription] = useState(false);
 
+  // Funcion al presionar boton "Guardar"
+  
   const handleAddTask = () => {
-    // Forzamos a que ambos campos cuenten como "tocados" para activar los errores visuales si están vacíos
+  //Seteo en "Presionados" los estados para activar los errores visuales si están vacíos
     setTouchedTitle(true); 
     setTouchedDescription(true);
 
-    // Validaciones
-    if (title.trim().length < 5 || description.trim().length < 10) {
+    // Validaciones 
+    if (title.trim().length < 3 || description.trim().length < 5) {
       return; //detiene la funcion, da un undefined
     }
-
+    // Creacion del objeto "Tarea"
     const task = {
       title: title.trim(), 
       description: description.trim(),
@@ -29,42 +32,52 @@ export default function TaskForm() {
     console.log('Tarea creada:', task);
     Alert.alert('Éxito', 'Tarea capturada localmente');
 
+    // Reseteo las variables
     setTitle('');
     setDescription('');
     setCategory('Trabajo');
     setTouchedTitle(false);
     setTouchedDescription(false);
   };
-// titleError será true SOLO si el usuario ya tocó el título Y ADEMÁS el texto tiene menos de 5 letras
-  const titleError = touchedTitle && title.trim().length < 5;
-// descriptionError será true SOLO si el usuario ya tocó la descripción Y ADEMÁS tiene menos de 10 letras
-  const descriptionError = touchedDescription && description.trim().length < 10;
+
+// titleError será true SOLO si el usuario ya tocó el título Y ADEMÁS el texto tiene menos de 3 letras
+  const titleError = touchedTitle && title.trim().length < 3;
+
+// descriptionError será true SOLO si el usuario ya tocó la descripción Y ADEMÁS tiene menos de 5 letras
+  const descriptionError = touchedDescription && description.trim().length < 5;
+  
   return (
     <KeyboardAvoidingView style={styles.container}>
       <Text style={styles.title}>Nueva tarea</Text>
-      <Text style={styles.label}>Título</Text>
 
-      <TextInput // Aplica el estilo base, y si hay error (titleError es true), le suma el borde rojo
+      {/* Titulo */}
+      <Text style={styles.label}>Título</Text>
+      <TextInput 
+      // Aplica el estilo base, y si hay error, le suma el borde rojo
         style={[styles.input, titleError && styles.errorInput,]}
         placeholder="Título de la tarea"
         value={title}
-        onChangeText={setTitle} //Captura el cambio y envia
-        onBlur={() => setTouchedTitle(true)} // Cuando el usuario sale del input, marca que ya lo tocó
-        autoCapitalize="sentences" // Pone la primera letra de cada oración en mayúscula
-        returnKeyType="next" // Cambia el botón del teclado del celular por uno que dice "Siguiente"
+        //Captura el cambio y envia
+        onChangeText={setTitle} 
+        // Cuando el usuario sale del input, marca que ya lo tocó
+        onBlur={() => setTouchedTitle(true)}
+        // Pone la primera letra de cada oración en mayúscula 
+        autoCapitalize="sentences"
+        // Cambia el botón del teclado del celular por uno que dice "Siguiente" 
+        returnKeyType="next" 
       />
+
     {/* Si titleError es true, dibuja en la pantalla el siguiente texto de error */}
       {titleError && (//le avisan a react que es un bloque de codigo.
         <Text style={styles.error}>
-          El título debe tener al menos 5 caracteres.
+          El título debe tener al menos 3 caracteres.
         </Text>
       )}
 
       {/* Descripción */}
       <Text style={styles.label}>Descripción</Text>
-
       <TextInput //Para añadir estilos uso un array
-        style={[styles.input,styles.description,descriptionError && styles.errorInput,]}
+        style={[styles.input, styles.description, descriptionError && styles.errorInput]}
         placeholder="Descripción"
         value={description}
         onChangeText={setDescription}
@@ -75,25 +88,24 @@ export default function TaskForm() {
 
       {descriptionError && (
         <Text style={styles.error}>
-          La descripción debe tener al menos 10 caracteres.
+          La descripción debe tener al menos 5 caracteres.
         </Text>
       )}
 
       {/* Categoría */}
       <Text style={styles.label}>Categoría</Text>
-
       <View style={styles.categories}>
         {['Trabajo', 'Estudio', 'Personal'].map((item) => (
           <TouchableOpacity
+            // Aplica el diseño de botón común, pero si coincide con la categoría seleccionada, aplica el estilo resaltado
             key={item}
             style={[
               styles.category, 
-              // Aplica el diseño de botón común, pero si coincide con la categoría seleccionada, aplica el estilo resaltado
               category === item && styles.selectedCategory,
             ]}
             onPress={() => setCategory(item)}
           >
-            <Text>{item}</Text>
+            <Text style={styles.text}>{item}</Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -114,11 +126,13 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     justifyContent: 'center',
+    backgroundColor: 'lightseagreen',
   },
   title: {
     fontSize: 26,
     fontWeight: 'bold',
     marginBottom: 25,
+    alignSelf: 'center',
   },
   label: {
     fontSize: 16,
@@ -132,6 +146,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 12,
     fontSize: 16,
+    backgroundColor: 'lightgrey'
   },
   description: {
     height: 100,
@@ -141,7 +156,8 @@ const styles = StyleSheet.create({
   },
   error: {
     color: 'red',
-    fontSize: 13,
+    fontSize: 14,
+    fontWeight: 'bold',
     marginTop: 4,
   },
   categories: {
@@ -152,23 +168,27 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 12,
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: 'gray',
+    borderWidth: 1.5,
+    borderColor: 'black',
     borderRadius: 8,
+    backgroundColor: 'lightgrey',
   },
   selectedCategory: {
-    backgroundColor: 'lightblue',
+    backgroundColor: 'teal',
   },
   button: {
     marginTop: 25,
     padding: 15,
-    backgroundColor: 'blue',
+    backgroundColor: 'darkcyan',
     borderRadius: 8,
+    borderWidth: 1,
     alignItems: 'center',
   },
   buttonText: {
-    color: 'white',
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: 'bold',
+  },
+  text: {
+    fontSize: 18,
   },
 });
