@@ -188,7 +188,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
-    fontSize: 20,
     fontWeight: 'bold',
   },
   text: {
