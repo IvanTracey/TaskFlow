@@ -14,7 +14,9 @@ export default function TaskForm() {
   //Funcion de validacion
   const validateForm = ()  => {
     if (title.trim().length < 5 || description.trim().length < 10) {
-      return; //detiene la funcion, da un undefined
+      return false; //detiene la funcion, da un undefined
+    }else{
+      return true;
     }
   }
   // Funcion al presionar boton "Guardar"
@@ -23,7 +25,6 @@ export default function TaskForm() {
     setTouchedTitle(true); 
     setTouchedDescription(true);
 
-    validateForm();
 
     // Creacion del objeto "Tarea"
     const task = {
@@ -32,21 +33,27 @@ export default function TaskForm() {
       category,
       createdAt: new Date(),
     };
-    console.log('Tarea creada:', task);
-    Alert.alert('Éxito', 'Tarea capturada localmente');
+    
+    if(validateForm()){  
+      console.log('Tarea creada:', task);
+      Alert.alert('Éxito', 'Tarea capturada localmente');
 
-    // Reseteo las variables
-    setTitle('');
-    setDescription('');
-    setCategory('Trabajo');
-    setTouchedTitle(false);
-    setTouchedDescription(false);
+      // Reseteo las variables
+      setTitle('');
+      setDescription('');
+      setCategory('Trabajo');
+      setTouchedTitle(false);
+      setTouchedDescription(false);
+    }
+    else{
+     Alert.alert('Error', 'No has completado correctamente los campos');
+    }
   };
 
-// titleError será true SOLO si el usuario ya tocó el título Y ADEMÁS el texto tiene menos de 3 letras
+// titleError será true SOLO si el usuario ya tocó el título Y ADEMÁS el texto tiene menos de 5 letras
   const titleError = touchedTitle && title.trim().length < 5;
 
-// descriptionError será true SOLO si el usuario ya tocó la descripción Y ADEMÁS tiene menos de 5 letras
+// descriptionError será true SOLO si el usuario ya tocó la descripción Y ADEMÁS tiene menos de 10 letras
   const descriptionError = touchedDescription && description.trim().length < 10;
   
   return (
@@ -132,7 +139,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightseagreen',
   },
   title: {
-    fontSize: 26,
+    fontSize: 46,
     fontWeight: 'bold',
     marginBottom: 25,
     alignSelf: 'center',
