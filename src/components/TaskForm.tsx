@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { COLORS, SIZE } from '../constants/theme';
 import { Alert, KeyboardAvoidingView, StyleSheet, Text, TextInput,TouchableOpacity, View } from 'react-native';
 
 export default function TaskForm() {
@@ -136,7 +137,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     justifyContent: 'center',
-    backgroundColor: 'lightseagreen',
+    backgroundColor: COLORS.primary,
   },
   title: {
     fontSize: 46,
@@ -145,7 +146,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   label: {
-    fontSize: 16,
+    fontSize: SIZE.fontSmall,
     fontWeight: 'bold',
     marginBottom: 6,
     marginTop: 12,
@@ -189,7 +190,7 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 25,
     padding: 15,
-    backgroundColor: 'darkcyan',
+    backgroundColor: COLORS.background,
     borderRadius: 8,
     borderWidth: 1,
     alignItems: 'center',

@@ -1,4 +1,5 @@
 import { Text, StyleSheet, View } from "react-native"
+import { COLORS, MARGIN, SIZE } from "../constants/theme";
 
 export default function EmptyState() {
     return(
@@ -8,18 +9,15 @@ export default function EmptyState() {
         </View>
     )
 }
-
-
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    marginTop: 40,
-    justifyContent: 'center',
+    marginTop: 400,
     backgroundColor: 'lightseagreen',
   },
 
   text: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: SIZE.fontSmall,
+    fontWeight: 'bold', 
   },
 });

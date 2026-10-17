@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { FlatList,Text,TouchableOpacity,StyleSheet,View,} from 'react-native';
+import { SafeAreaView  } from 'react-native-safe-area-context';
+import { FlatList,Text,TouchableOpacity,StyleSheet,View} from 'react-native';
 import EmptyState from '../components/EmptyState';
 import TaskDetail from '../components/TaskDetailScreen';
 import { Task } from '../constants/types';
@@ -31,7 +32,7 @@ export default function HomeScreen() {
   }
 //SI no hay pueden ser 2 cosas; no hay tareas o no  fue seleccionada:
   return (
-    <View style={styles.container}>
+    <SafeAreaView  style={styles.container}>
       <Text style={styles.title}>Mis tareas</Text>
     {/**3 NO HAY ITEM SELECCIONADO, ES NULL O FALSE ENTONCES MUESTRA LISTA */}
       {tasks.length === 0 ? (
@@ -48,7 +49,7 @@ export default function HomeScreen() {
           )}
         />
       )}
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -56,7 +57,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    justifyContent: 'center',
     backgroundColor: 'lightseagreen',
   },
 
