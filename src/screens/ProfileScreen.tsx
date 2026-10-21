@@ -1,9 +1,11 @@
 import { View, Text, StyleSheet } from "react-native"
-import { COLORS, MARGIN } from "../constants/theme"
+import { COLORS, MARGIN, SIZE } from "../constants/theme"
 import { ProfileCard } from "../components/ProfileCards"
+import { SafeAreaView  } from 'react-native-safe-area-context';
 
 export function ProfileScreen(){
     return(
+        <SafeAreaView  style={styles.container}>
         <View style={styles.container}>
             <Text style={styles.title}>TaskFlow</Text>
             <ProfileCard 
@@ -25,20 +27,21 @@ export function ProfileScreen(){
                 isActive = {true}>
             </ProfileCard>
         </View>
+        </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: COLORS.background,
-        padding: MARGIN.marginContainer,
+        backgroundColor: COLORS.primary,
+        padding: MARGIN.marginS,
     },
     title: {
-        fontSize: 26,
+        fontSize: SIZE.fontLarge,
         fontWeight: 'bold',
         color: COLORS.text,
-        marginBottom: MARGIN.marginTitle,
+        marginBottom: MARGIN.marginS,
         alignSelf: 'center'
-    },
+    }
 })

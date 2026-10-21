@@ -4,20 +4,24 @@ import { COLORS, MARGIN, SIZE } from "../constants/theme";
 export default function EmptyState() {
     return(
         <View style={styles.container}>
-            <Text style={styles.text}>No tenes tareas pendientes!</Text>
-            <Text> Empieza por crear una tarea.</Text>
+            <Text style={styles.icon}>📋</Text>
+            <Text style={styles.text}>¡No tienes tareas pendientes!</Text>
+            <Text> Empieza por crear una arriba.</Text>
         </View>
     )
 }
+
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    marginTop: 400,
-    backgroundColor: 'lightseagreen',
+    marginTop: MARGIN.marginL*6,
   },
-
+  icon: {
+    fontSize: 50,
+    paddingBottom: MARGIN.marginXS,
+  },
   text: {
-    fontSize: SIZE.fontSmall,
+    fontSize: SIZE.fontMedium,
     fontWeight: 'bold', 
   },
 });

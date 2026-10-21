@@ -6,13 +6,12 @@ export const COLORS = {
     border: 'black',
     textLight: 'gray',
 
-    success: 'green',
-    danger: 'lightgray',
+    success: 'lightgreen',
+    danger: 'lightgrey',
 }
 
 export const MARGIN = {
-    marginContainer: 30,
-    marginTitle: 20,
+    marginXS: 10, 
     marginS: 20, 
     marginM: 30, 
     marginL: 40, 

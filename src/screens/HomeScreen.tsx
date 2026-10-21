@@ -1,12 +1,20 @@
 import { useState } from 'react';
 import { SafeAreaView  } from 'react-native-safe-area-context';
 import { FlatList,Text,TouchableOpacity,StyleSheet,View} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import EmptyState from '../components/EmptyState';
-import TaskDetail from '../components/TaskDetailScreen';
 import { Task } from '../constants/types';
+import { TasksStackParamList } from '../navegation//TasksStack';
+import { COLORS, MARGIN, SIZE } from '../constants/theme';
+
+// Tipamos la navegación para tener autocompletado en navigate()
+type HomeNavProp = NativeStackNavigationProp<TasksStackParamList, 'TaskList'>;
+
 //setstaks por si luego queremos hacer modificaciones en la lista.
 export default function HomeScreen() {
-  const [tasks, setTasks] = useState<Task[]>([
+  const navigation = useNavigation<HomeNavProp>();
+  const [ tasks ] = useState<Task[]>([
     {
       id: '1',
       title: 'Estudiar React Native',
@@ -22,33 +30,44 @@ export default function HomeScreen() {
       createdAt: new Date(),
     },
   ]);
-//1 AL ENTRAR SELECTEDTASK VALE NULL = lista mis tareas
-  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
-  // Si hay una tarea seleccionada mostramos su detalle
-  if (selectedTask) {
-    return (
-      <TaskDetail task={selectedTask} onBack={() => setSelectedTask(null)}/>
-    );
-  }
-//SI no hay pueden ser 2 cosas; no hay tareas o no  fue seleccionada:
+
+  // Ahora navegamos al detalle pasando los datos por params.
+  const handleTaskPress = (task: Task) => {
+    navigation.navigate('TaskDetail', {
+      id: task.id,
+      title: task.title,
+      description: task.description,
+      category: task.category,
+      createdAt: task.createdAt.toISOString(), // Date → string ISO (serializable)
+    });
+  };
+
+  // Botón flotante para ir al formulario de nueva tarea
+  const handleAddPress = () => {
+    navigation.navigate('TaskForm');
+  };
+
   return (
     <SafeAreaView  style={styles.container}>
       <Text style={styles.title}>Mis tareas</Text>
-    {/**3 NO HAY ITEM SELECCIONADO, ES NULL O FALSE ENTONCES MUESTRA LISTA */}
       {tasks.length === 0 ? (
         <EmptyState />
-      ) : ( //2 CON ONPRESS SELECCIONAMOS TAREA, YA NO ES NULL SINO ITEM.
+      ) : ( 
         <FlatList
           data={tasks}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <TouchableOpacity style={styles.card} onPress={() => setSelectedTask(item)}>
+            <TouchableOpacity style={styles.card} onPress={() => handleTaskPress(item)}>
               <Text style={styles.taskTitle}>{item.title}</Text>
               <Text>{item.category}</Text>
             </TouchableOpacity>
           )}
         />
       )}
+      {/* Botón flotante "+" para nueva tarea */}
+      <TouchableOpacity style={styles.fab} onPress={handleAddPress}>
+        <Text style={styles.fabText}>+</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
@@ -56,29 +75,50 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    backgroundColor: 'lightseagreen',
+    padding: MARGIN.marginS,
+    backgroundColor: COLORS.primary,
   },
 
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    marginBottom: 25,
+    marginBottom: MARGIN.marginS,
     alignSelf: 'center',
   },
 
   card: {
-    padding: 15,
-    marginBottom: 10,
-    backgroundColor: 'white',
+    padding: MARGIN.marginS,
+    marginBottom: MARGIN.marginS,
+    backgroundColor: COLORS.card,
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: COLORS.textLight,
     borderRadius: 8,
   },
 
   taskTitle: {
-    fontSize: 18,
+    fontSize: SIZE.fontMedium,
     fontWeight: 'bold',
     marginBottom: 5,
+  },
+  taskCategory: {
+    color: COLORS.textLight,
+  },
+  fab: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    backgroundColor: COLORS.card,
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 4,
+  },
+  fabText: {
+    color: COLORS.primary,
+    fontSize: 32,
+    lineHeight: 34,
+    fontWeight: 'bold',
   },
 });

@@ -1,8 +1,15 @@
 import { useState } from 'react';
-import { COLORS, SIZE } from '../constants/theme';
+import { COLORS, MARGIN, SIZE } from '../constants/theme';
 import { Alert, KeyboardAvoidingView, StyleSheet, Text, TextInput,TouchableOpacity, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { TasksStackParamList } from '../navegation/TasksStack';
+
+type TaskFormNavProp = NativeStackNavigationProp <TasksStackParamList, 'TaskForm'>;
 
 export default function TaskForm() {
+  const navigation = useNavigation<TaskFormNavProp>();
+
   // Creacion de estados para la informacion del formulario
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -22,10 +29,9 @@ export default function TaskForm() {
   }
   // Funcion al presionar boton "Guardar"
   const handleAddTask = () => {
-  //Seteo en "Presionados" los estados para activar los errores visuales si están vacíos
+    //Seteo en "Presionados" los estados para activar los errores visuales si están vacíos
     setTouchedTitle(true); 
     setTouchedDescription(true);
-
 
     // Creacion del objeto "Tarea"
     const task = {
@@ -45,23 +51,24 @@ export default function TaskForm() {
       setCategory('Trabajo');
       setTouchedTitle(false);
       setTouchedDescription(false);
+
+      // De vuelve la navegacion a la lista
+      navigation.navigate('TaskList');
     }
     else{
      Alert.alert('Error', 'No has completado correctamente los campos');
     }
+    
   };
 
-// titleError será true SOLO si el usuario ya tocó el título Y ADEMÁS el texto tiene menos de 5 letras
   const titleError = touchedTitle && title.trim().length < 5;
-
-// descriptionError será true SOLO si el usuario ya tocó la descripción Y ADEMÁS tiene menos de 10 letras
   const descriptionError = touchedDescription && description.trim().length < 10;
   
   return (
-    <KeyboardAvoidingView style={styles.container}>
+    <KeyboardAvoidingView 
+    style={styles.container}>
       <Text style={styles.title}>Nueva tarea</Text>
 
-      {/* Titulo */}
       <Text style={styles.label}>Título</Text>
       <TextInput 
       // Aplica el estilo base, y si hay error, le suma el borde rojo
@@ -85,7 +92,6 @@ export default function TaskForm() {
         </Text>
       )}
 
-      {/* Descripción */}
       <Text style={styles.label}>Descripción</Text>
       <TextInput //Para añadir estilos uso un array
         style={[styles.input, styles.description, descriptionError && styles.errorInput]}
@@ -102,8 +108,6 @@ export default function TaskForm() {
           La descripción debe tener al menos 10 caracteres.
         </Text>
       )}
-
-      {/* Categoría */}
       <Text style={styles.label}>Categoría</Text>
       <View style={styles.categories}>
         {['Trabajo', 'Estudio', 'Personal'].map((item) => (
@@ -121,11 +125,7 @@ export default function TaskForm() {
         ))}
       </View>
 
-      {/* Guardar */}
-      <TouchableOpacity
-        style={styles.button}
-        onPress={handleAddTask}
-      >
+      <TouchableOpacity style={styles.button} onPress={handleAddTask}>
         <Text style={styles.buttonText}>Guardar</Text>
       </TouchableOpacity>
     </KeyboardAvoidingView>
@@ -135,7 +135,7 @@ export default function TaskForm() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: MARGIN.marginS,
     justifyContent: 'center',
     backgroundColor: COLORS.primary,
   },
@@ -153,11 +153,11 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: COLORS.textLight,
     borderRadius: 8,
     padding: 12,
     fontSize: 16,
-    backgroundColor: 'lightgrey'
+    backgroundColor: COLORS.card,
   },
   description: {
     height: 100,
@@ -182,14 +182,14 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: 'black',
     borderRadius: 8,
-    backgroundColor: 'lightgrey',
+    backgroundColor: COLORS.card,
   },
   selectedCategory: {
-    backgroundColor: 'teal',
+    backgroundColor: COLORS.background,
   },
   button: {
-    marginTop: 25,
-    padding: 15,
+    marginTop: MARGIN.marginS,
+    padding: MARGIN.marginS,
     backgroundColor: COLORS.background,
     borderRadius: 8,
     borderWidth: 1,
@@ -197,8 +197,9 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontWeight: 'bold',
+    fontSize: SIZE.fontSmall,
   },
   text: {
-    fontSize: 18,
+    fontSize: SIZE.fontSmall,
   },
 });

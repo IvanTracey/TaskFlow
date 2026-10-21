@@ -1,5 +1,5 @@
 import { View, Text, Image, StyleSheet } from "react-native"
-import { COLORS, MARGIN } from "../constants/theme"
+import { COLORS, MARGIN, SIZE } from "../constants/theme"
 
 type Props = {
     name: string;
@@ -9,7 +9,6 @@ type Props = {
 }
 
 export function ProfileCard ({name, role, image, isActive} : Props){
-  
     return(
         <View style={styles.card}>
             <Image source={{uri: image}} style={styles.avatar}/>
@@ -22,9 +21,6 @@ export function ProfileCard ({name, role, image, isActive} : Props){
                     <Text style={styles.badgeText}> {isActive ? "Activo" : "Inactivo"}</Text>
                 </View>
             </View>
-            <View>
-              
-            </View>
         </View>
     )
 }
@@ -35,8 +31,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: COLORS.card,
     borderRadius: 16,
-    padding: 16,
-    marginBottom: 12,
+    padding: MARGIN.marginS,
+    marginBottom: MARGIN.marginXS,
     borderWidth: 1,
     borderColor: COLORS.border,
   },
@@ -53,12 +49,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   name: {
-    fontSize: 18,
+    fontSize: SIZE.fontMedium,
     fontWeight: 'bold',
     color: COLORS.text,
   },
   role: {
-    fontSize: 14,
+    fontSize: SIZE.fontSmall,
     color: COLORS.textLight,
     marginTop: 2,
   },
@@ -66,7 +62,7 @@ const styles = StyleSheet.create({
   badge: {
     alignSelf: 'flex-end',
     paddingHorizontal: 10,
-    paddingVertical: 4,
+    paddingVertical: 5,
     borderRadius: 9,
     margin: 2,
   },
