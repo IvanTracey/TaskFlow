@@ -31,7 +31,7 @@ export default function TasksStack() {
         screenOptions={     // Configura opciones comunes a todas las pantallas
             // Las primeras llaves pertenecen a JSX y las segundas a un objeto
             {
-            headerStyle: {backgroundColor: COLORS.primary},
+            headerStyle: {backgroundColor: COLORS.background},
             headerTitleStyle: { fontWeight: "bold" }
             }
         }>

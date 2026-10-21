@@ -31,7 +31,7 @@ export default function HomeScreen() {
     },
   ]);
 
-  // Ahora navegamos al detalle pasando los datos por params.
+  // Ahora navegamos al detalle pasando los datos por params (tambien indicando el tipo, por ser TypeScript).
   const handleTaskPress = (task: Task) => {
     navigation.navigate('TaskDetail', {
       id: task.id,
@@ -49,15 +49,20 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView  style={styles.container}>
-      <Text style={styles.title}>Mis tareas</Text>
       {tasks.length === 0 ? (
         <EmptyState />
       ) : ( 
         <FlatList
+          // Array con la informacion
           data={tasks}
+          // Identificador
           keyExtractor={(item) => item.id}
+          // Lo que se muestra en cada iteracion
           renderItem={({ item }) => (
-            <TouchableOpacity style={styles.card} onPress={() => handleTaskPress(item)}>
+            <TouchableOpacity 
+            style={styles.card} 
+            onPress={() => handleTaskPress(item)}
+            >
               <Text style={styles.taskTitle}>{item.title}</Text>
               <Text>{item.category}</Text>
             </TouchableOpacity>
@@ -65,7 +70,10 @@ export default function HomeScreen() {
         />
       )}
       {/* Botón flotante "+" para nueva tarea */}
-      <TouchableOpacity style={styles.fab} onPress={handleAddPress}>
+      <TouchableOpacity 
+      style={styles.fab} 
+      onPress={handleAddPress}
+      >
         <Text style={styles.fabText}>+</Text>
       </TouchableOpacity>
     </SafeAreaView>

@@ -7,7 +7,7 @@ export function ProfileScreen(){
     return(
         <SafeAreaView  style={styles.container}>
         <View style={styles.container}>
-            <Text style={styles.title}>TaskFlow</Text>
+            <Text style={styles.title}>Perfiles</Text>
             <ProfileCard 
                 name="Ana Gomez" 
                 role="Desarrolladora" 

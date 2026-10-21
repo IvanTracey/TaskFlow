@@ -27,6 +27,7 @@ export default function TaskForm() {
       return true;
     }
   }
+
   // Funcion al presionar boton "Guardar"
   const handleAddTask = () => {
     //Seteo en "Presionados" los estados para activar los errores visuales si están vacíos
@@ -44,6 +45,8 @@ export default function TaskForm() {
     if(validateForm()){  
       console.log('Tarea creada:', task);
       Alert.alert('Éxito', 'Tarea capturada localmente');
+
+
 
       // Reseteo las variables
       setTitle('');
@@ -67,8 +70,6 @@ export default function TaskForm() {
   return (
     <KeyboardAvoidingView 
     style={styles.container}>
-      <Text style={styles.title}>Nueva tarea</Text>
-
       <Text style={styles.label}>Título</Text>
       <TextInput 
       // Aplica el estilo base, y si hay error, le suma el borde rojo
