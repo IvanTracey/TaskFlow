@@ -11,6 +11,8 @@ FIG 1: Imagen de HomeScreen donde se observa la lista de tareas, el boton para a
 FIG 2: Imagen de detalles de una tarea seleccionada.
 FIG 3: Imagen que muestra el formulario para crear una nueva tarea.
 FIG 4: Imagen de la pantalla correspondiente al listado de perfiles creados.
+
+
 <img width="240" height="480" alt="image" src="https://github.com/user-attachments/assets/414f547c-fde3-4b10-b2d8-79dfdb0308e2" />
 <img width="240" height="480" alt="image" src="https://github.com/user-attachments/assets/971cb420-0a6c-4f24-af53-78a0458986c2" />
 <img width="240" height="480" alt="image" src="https://github.com/user-attachments/assets/f81a162e-d208-4cf0-8536-bb4098e2e727" />
