@@ -7,3 +7,4 @@ La pantalla principal muestra el listado de tareas, y en caso de no haber, un me
 - En ella existe un boton donde te envia a otra pantalla (navegacion stack), donde se puede crear una nueva tarea mediante un formulario. Se regresa a la pantalla de inico a partir del guardado de la tarea creada o al presionar sobre una flecha. 
 - En HomeScreen tambien existe una barra horizontal que permite una navegacion tab hacia la pantalla de perfiles. La opción correspondiente a la página actual, posee el color negro.
 
+<img width="472" height="993" alt="image" src="https://github.com/user-attachments/assets/414f547c-fde3-4b10-b2d8-79dfdb0308e2" />
