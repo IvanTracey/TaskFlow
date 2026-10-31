@@ -4,11 +4,13 @@ import { Ionicons } from "@expo/vector-icons";
 import { ProfileScreen } from "../screens/ProfileScreen";
 import { COLORS } from "../constants/theme"
 import TasksStack from "./TasksStack";
+import FirebaseDemoScreen from "../screens/FirebasedemoScreen"
 
 // Rutas del Tab raiz
 export type RootTabParamList = {
     Home: undefined,
     Profile: undefined,
+    Demo: undefined,
 }
 
 // Crea un navegador tipo Tab (Barra inferior)
@@ -43,7 +45,13 @@ export default function AppNavigator(){
             component={ProfileScreen}
             options={{title: "Perfil"}}
             />
-
+            {/*
+            <Tab.Screen
+            name="Demo"
+            component={FirebaseDemoScreen}
+            options={{title: "Demo"}}
+            />
+            */}
         </Tab.Navigator>
         </NavigationContainer>
     )
