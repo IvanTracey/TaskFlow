@@ -7,8 +7,8 @@ import TasksStack from "./TasksStack";
 
 // Rutas del Tab raiz
 export type RootTabParamList = {
-    HomeTab: undefined,
-    ProfileTab: undefined,
+    Home: undefined,
+    Profile: undefined,
 }
 
 // Crea un navegador tipo Tab (Barra inferior)
@@ -27,19 +27,19 @@ export default function AppNavigator(){
             tabBarInactiveTintColor: COLORS.background,
             tabBarIcon: ({ color, size }) => {
             // Definimos el icono según la pestaña activa
-                const iconName = route.name === "HomeTab" ? "list-outline" : "person-outline";
+                const iconName = route.name === "Home" ? "list-outline" : "person-outline";
                 return <Ionicons name={iconName} size={size} color={color}/>
             }
         })
         }>
             <Tab.Screen
-            name="HomeTab"
+            name="Home"
             component={TasksStack}
             options={{title: "Inicio"}}
             />
 
             <Tab.Screen
-            name="ProfileTab"
+            name="Profile"
             component={ProfileScreen}
             options={{title: "Perfil"}}
             />

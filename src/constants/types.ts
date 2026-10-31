@@ -3,5 +3,9 @@ export type Task = {
     title: string;
     description: string;
     category: string;
-    createdAt: Date;
+    createdAt: string;
+    completed: boolean;
 }
+
+
+export type TaskFilter = 'all' | 'completed' | 'pending';

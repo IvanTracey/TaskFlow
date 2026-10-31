@@ -3,13 +3,16 @@ import { COLORS, MARGIN, SIZE } from '../constants/theme';
 import { Alert, KeyboardAvoidingView, StyleSheet, Text, TextInput,TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { TasksStackParamList } from '../navegation/TasksStack';
+import { TasksStackParamList } from '../navigation/TasksStack';
+import { useAppDispatch } from '../store/hooks';
+import { addTask } from '../store/slices/tasksSlice';
 
 type TaskFormNavProp = NativeStackNavigationProp <TasksStackParamList, 'TaskForm'>;
 
 export default function TaskForm() {
   const navigation = useNavigation<TaskFormNavProp>();
-
+  
+  const dispatch = useAppDispatch();
   // Creacion de estados para la informacion del formulario
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -45,8 +48,14 @@ export default function TaskForm() {
     if(validateForm()){  
       console.log('Tarea creada:', task);
       Alert.alert('Éxito', 'Tarea capturada localmente');
-
-
+      // Despacha la accion addTask
+      dispatch(
+        addTask({
+          title: title.trim(),
+          description: description.trim(),
+          category,
+        })
+      );
 
       // Reseteo las variables
       setTitle('');
