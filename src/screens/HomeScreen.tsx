@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { SafeAreaView  } from 'react-native-safe-area-context';
 import { FlatList,Text,TouchableOpacity,StyleSheet,View} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -6,7 +7,7 @@ import EmptyState from '../components/EmptyState';
 import { TasksStackParamList } from '../navigation/TasksStack';
 import { COLORS, MARGIN, SIZE } from '../constants/theme';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
-import { setFilter } from '../store/slices/tasksSlice';
+import { fetchTasks, setFilter } from '../store/slices/tasksSlice';
 import { TaskFilter } from '../constants/types';
 
 // Tipamos la navegación para tener autocompletado en navigate()
@@ -18,8 +19,13 @@ export default function HomeScreen() {
   const dispatch = useAppDispatch();
 
   // useAppSelector lee/selecciona datos - cuando state cambia, trae el objeto tasks de state y asigna sus valores internos al array tareas y a la variable filter
-  const { tasks, filter } = useAppSelector((state) => state.tasks);
-  
+  const { tasks, filter, error } = useAppSelector((state) => state.tasks);
+
+  // Carga inicial: al montar la pantalla pedimos a Firestore las tareas del usuario
+  useEffect(() => {
+    dispatch(fetchTasks());
+  }, [dispatch]);
+
   // Esto se recalcula solo cuando cambian tasks o filter (useSelector ya re-renderiza).
   const filteredTasks = tasks.filter((t) => {
     if (filter === 'completed') return t.completed;
@@ -55,6 +61,9 @@ export default function HomeScreen() {
           </TouchableOpacity>
         ))}
       </View>
+
+      {/* Si fallo la carga desde Firestore (ej. sin internet) avisamos en pantalla */}
+      {error && <Text style={styles.error}>{error}</Text>}
 
       {filteredTasks.length === 0 ? (
         <EmptyState />
@@ -140,6 +149,12 @@ const styles = StyleSheet.create({
   },
   taskCategory: {
     color: COLORS.textLight,
+  },
+  error: {
+    color: 'red',
+    fontSize: 14,
+    fontWeight: 'bold',
+    marginBottom: MARGIN.marginXS,
   },
   fab: {
     position: 'absolute',

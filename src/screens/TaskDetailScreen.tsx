@@ -1,3 +1,4 @@
+import { Alert } from 'react-native';
 import { useRoute, useNavigation, RouteProp } from '@react-navigation/native';
 import { TasksStackParamList } from '../navigation/TasksStack';
 import TaskDetail from './TaskDetail';
@@ -28,14 +29,23 @@ export default function TaskDetailScreen() {
   }
 
   //  Handler para toggle
-  const handleToggle = () => {
-    dispatch(toggleTaskStatus(id));
+  //  (unwrap() lanza error si Firestore falla, y se lo avisamos al usuario)
+  const handleToggle = async () => {
+    try {
+      await dispatch(toggleTaskStatus(id)).unwrap();
+    } catch (error) {
+      Alert.alert('Error', typeof error === 'string' ? error : 'No pudimos actualizar la tarea.');
+    }
   };
 
   //  Handler para delete: borra y vuelve a la lista
-  const handleDelete = () => {
-    dispatch(deleteTask(id));
-    navigation.goBack();
+  const handleDelete = async () => {
+    try {
+      await dispatch(deleteTask(id)).unwrap();
+      navigation.goBack();
+    } catch (error) {
+      Alert.alert('Error', typeof error === 'string' ? error : 'No pudimos borrar la tarea.');
+    }
   };
 
   return (
