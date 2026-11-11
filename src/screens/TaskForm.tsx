@@ -32,30 +32,26 @@ export default function TaskForm() {
   }
 
   // Funcion al presionar boton "Guardar"
-  const handleAddTask = () => {
+  const handleAddTask = async () => {
     //Seteo en "Presionados" los estados para activar los errores visuales si están vacíos
     setTouchedTitle(true); 
     setTouchedDescription(true);
 
-    // Creacion del objeto "Tarea"
-    const task = {
-      title: title.trim(), 
-      description: description.trim(),
-      category,
-      createdAt: new Date(),
-    };
-    
-    if(validateForm()){  
-      console.log('Tarea creada:', task);
-      Alert.alert('Éxito', 'Tarea capturada localmente');
-      // Despacha la accion addTask
-      dispatch(
-        addTask({
-          title: title.trim(),
-          description: description.trim(),
-          category,
-        })
-      );
+    if(validateForm()){
+      // Despacha la accion addTask (guarda en Firestore). unwrap() lanza error si falla
+      try {
+        await dispatch(
+          addTask({
+            title: title.trim(),
+            description: description.trim(),
+            category,
+          })
+        ).unwrap();
+      } catch (error) {
+        Alert.alert('Error', typeof error === 'string' ? error : 'No pudimos guardar la tarea.');
+        return;
+      }
+      Alert.alert('Éxito', 'Tarea guardada');
 
       // Reseteo las variables
       setTitle('');
@@ -64,8 +60,8 @@ export default function TaskForm() {
       setTouchedTitle(false);
       setTouchedDescription(false);
 
-      // De vuelve la navegacion a la lista
-      navigation.navigate('TaskList');
+      // Vuelve a la lista con goBack() para no acumular pantallas en el stack
+      navigation.goBack();
     }
     else{
      Alert.alert('Error', 'No has completado correctamente los campos');

@@ -5,6 +5,7 @@ export type Task = {
     category: string;
     createdAt: string;
     completed: boolean;
+    userId: string; // uid del usuario dueño de la tarea (para filtrar en Firestore)
 }
 
 
