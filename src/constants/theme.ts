@@ -21,4 +21,6 @@ export const SIZE = {
     fontSmall: 16,
     fontMedium: 20,
     fontLarge: 24,
+    fontXLarge: 30,
+    fontTitle: 36,
 }

@@ -9,72 +9,70 @@ type Props = {
 }
 
 export function ProfileCard ({name, role, image, isActive} : Props){
-    return(
-        <View style={styles.card}>
-            <Image source={{uri: image}} style={styles.avatar}/>
-            <View style={styles.info}>
-              <View>
-                <Text style={styles.name}>{name}</Text>
-                <Text style={styles.role}>{role}</Text>
-              </View>
-                <View style={[styles.badge, isActive ? styles.active : styles.inactive]}>
-                    <Text style={styles.badgeText}> {isActive ? "Activo" : "Inactivo"}</Text>
-                </View>
-            </View>
-        </View>
-    )
+  return(
+    <View style={styles.card}>
+      <Image source={{uri: image}} style={styles.avatar}/>
+      <Text style={styles.name}>{name}</Text>
+      <Text style={styles.role}>{role}</Text>
+      <View style={[styles.badge, isActive ? styles.active : styles.inactive]}>
+          <Text style={styles.badgeText}> {isActive ? "Activo" : "Inactivo"}</Text>
+      </View>
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
-    card: {
-    flexDirection: 'row',
+  card: {
     alignItems: 'center',
     backgroundColor: COLORS.card,
     borderRadius: 16,
-    padding: MARGIN.marginS,
-    marginBottom: MARGIN.marginXS,
+    padding: MARGIN.marginL,
+    margin: MARGIN.marginM,
     borderWidth: 1,
     borderColor: COLORS.border,
   },
   avatar: {
-    width: 64,
-    height: 64,
-    borderRadius: 32,
+    width: 100,
+    height: 100,
+    borderRadius: 10,
     backgroundColor: COLORS.border,
+    marginTop: MARGIN.marginS,
   },
   info: {
-    marginLeft: 16,
+    marginTop: MARGIN.marginS,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  name: {
-    fontSize: SIZE.fontMedium,
-    fontWeight: 'bold',
-    color: COLORS.text,
-  },
-  role: {
-    fontSize: SIZE.fontSmall,
-    color: COLORS.textLight,
-    marginTop: 2,
-  },
+    name: {
+      fontSize: SIZE.fontLarge,
+      fontWeight: 'bold',
+      color: COLORS.text,
+      marginTop: MARGIN.marginS,
+    },
+    role: {
+      fontSize: SIZE.fontMedium,
+      color: COLORS.textLight,
+      marginTop: MARGIN.marginS,
+      alignSelf: 'center',
+    },
 
   badge: {
-    alignSelf: 'flex-end',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
+    alignSelf: 'center',
+    paddingHorizontal: MARGIN.marginS,
+    paddingVertical: MARGIN.marginXS,
     borderRadius: 9,
-    margin: 2,
+    marginTop: MARGIN.marginXS,
   },
-  badgeText: {
-    fontSize: 12,
-    fontWeight: '600',
-  },
-  active: {
-    backgroundColor: COLORS.success,
-  },
-  inactive: {
-    backgroundColor: COLORS.danger,
-  },
+    badgeText: {
+      fontSize: SIZE.fontSmall,
+      fontWeight: 'bold',
+    },
+    active: {
+      backgroundColor: COLORS.success,
+    },
+    inactive: {
+      backgroundColor: COLORS.danger,
+    },
 })
 

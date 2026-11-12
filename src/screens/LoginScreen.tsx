@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
+import { KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../config/firebaseConfig';
 import { AuthStackParamList } from '../navigation/AuthStack';
-import { COLORS, MARGIN, SIZE } from '../constants/theme';
+import { styles } from '../constants/styles';
+
 
 type LoginNavProp = NativeStackNavigationProp<AuthStackParamList, 'Login'>;
 
@@ -74,107 +75,51 @@ export default function LoginScreen() {
     <KeyboardAvoidingView style={styles.container}>
       <Text style={styles.title}>TaskFlow</Text>
 
-      <Text style={styles.label}>Email</Text>
-      <TextInput
-        style={[styles.input, emailError && styles.errorInput]}
-        placeholder="tu@email.com"
-        value={email}
-        onChangeText={setEmail}
-        onBlur={() => setTouchedEmail(true)}
-        autoCapitalize="none"
-        autoCorrect={false}
-        keyboardType="email-address"
-        returnKeyType="next"
-      />
-      {emailError && <Text style={styles.error}>Ingresa un email válido.</Text>}
+      <View style={styles.sector}>
+        <Text style={styles.label}>Email</Text>
+        <TextInput
+          style={[styles.input, emailError && styles.errorInput]}
+          placeholder="tu@email.com"
+          value={email}
+          onChangeText={setEmail}
+          onBlur={() => setTouchedEmail(true)}
+          autoCapitalize="none"
+          autoCorrect={false}
+          keyboardType="email-address"
+          returnKeyType="next"
+        />
+        {emailError && <Text style={styles.error}>Ingresa un email válido.</Text>}
 
-      <Text style={styles.label}>Contraseña</Text>
-      <TextInput
-        style={[styles.input, passwordError && styles.errorInput]}
-        placeholder="Contraseña"
-        value={password}
-        onChangeText={setPassword}
-        onBlur={() => setTouchedPassword(true)}
-        secureTextEntry
-        autoCapitalize="none"
-      />
-      {passwordError && <Text style={styles.error}>Ingresa tu contraseña.</Text>}
+        <Text style={styles.label}>Contraseña</Text>
+        <TextInput
+          style={[styles.input, passwordError && styles.errorInput]}
+          placeholder="Contraseña"
+          value={password}
+          onChangeText={setPassword}
+          onBlur={() => setTouchedPassword(true)}
+          secureTextEntry
+          autoCapitalize="none"
+        />
+        {passwordError && <Text style={styles.error}>Ingresa tu contraseña.</Text>}
 
-      {/* Error de Firebase (credenciales incorrectas, sin conexión, etc.) */}
-      {error !== '' && <Text style={styles.error}>{error}</Text>}
+        {/* Error de Firebase (credenciales incorrectas, sin conexión, etc.) */}
+        {error !== '' && <Text style={styles.error}>{error}</Text>}
+      </View>
 
-      <TouchableOpacity
-        style={[styles.button, loading && styles.buttonDisabled]}
-        onPress={handleLogin}
-        disabled={loading}
-      >
-        <Text style={styles.buttonText}>{loading ? 'Ingresando...' : 'Ingresar'}</Text>
-      </TouchableOpacity>
+      <View style={styles.sector}>
+        <TouchableOpacity
+          style={[styles.button, loading && styles.buttonDisabled]}
+          onPress={handleLogin}
+          disabled={loading}
+        >
+          <Text style={styles.buttonText}>{loading ? 'Ingresando...' : 'Ingresar'}</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('Register')}>
-        <Text style={styles.linkText}>¿No tienes cuenta? Regístrate</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('Register')}>
+          <Text style={styles.linkText}>¿No tienes cuenta? Regístrate</Text>
+        </TouchableOpacity>
+      </View>
     </KeyboardAvoidingView>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: MARGIN.marginS,
-    justifyContent: 'center',
-    backgroundColor: COLORS.primary,
-  },
-  title: {
-    fontSize: 46,
-    fontWeight: 'bold',
-    marginBottom: 25,
-    alignSelf: 'center',
-  },
-  label: {
-    fontSize: SIZE.fontSmall,
-    fontWeight: 'bold',
-    marginBottom: 6,
-    marginTop: 12,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: COLORS.textLight,
-    borderRadius: 8,
-    padding: 12,
-    fontSize: 16,
-    backgroundColor: COLORS.card,
-  },
-  errorInput: {
-    borderColor: 'red',
-  },
-  error: {
-    color: 'red',
-    fontSize: 14,
-    fontWeight: 'bold',
-    marginTop: 4,
-  },
-  button: {
-    marginTop: MARGIN.marginS,
-    padding: MARGIN.marginS,
-    backgroundColor: COLORS.background,
-    borderRadius: 8,
-    borderWidth: 1,
-    alignItems: 'center',
-  },
-  buttonDisabled: {
-    opacity: 0.6,
-  },
-  buttonText: {
-    fontWeight: 'bold',
-    fontSize: SIZE.fontSmall,
-  },
-  link: {
-    marginTop: MARGIN.marginS,
-    alignItems: 'center',
-  },
-  linkText: {
-    fontSize: SIZE.fontSmall,
-    fontWeight: 'bold',
-  },
-});

@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { SafeAreaView  } from 'react-native-safe-area-context';
-import { FlatList,Text,TouchableOpacity,StyleSheet,View} from 'react-native';
+import { FlatList,Text,TouchableOpacity,View} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import EmptyState from '../components/EmptyState';
 import { TasksStackParamList } from '../navigation/TasksStack';
-import { COLORS, MARGIN, SIZE } from '../constants/theme';
+import { styles } from '../constants/styles';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import { fetchTasks, setFilter } from '../store/slices/tasksSlice';
 import { TaskFilter } from '../constants/types';
@@ -39,7 +39,7 @@ export default function HomeScreen() {
     navigation.navigate('TaskDetail', { id });
   };
 
-  // Botón flotante para ir al formulario de nueva tarea
+  // Botón para ir al formulario de nueva tarea
   const handleAddPress = () => {
     navigation.navigate('TaskForm');
   };
@@ -75,103 +75,16 @@ export default function HomeScreen() {
           keyExtractor={(item) => item.id}
           // Lo que se muestra en cada iteracion
           renderItem={({ item }) => (
-            <TouchableOpacity 
-            style={styles.card} 
-            onPress={() => handleTaskPress(item.id)}
-            >
+            <TouchableOpacity style={styles.card} onPress={() => handleTaskPress(item.id)}>
               <Text style={[styles.taskTitle, item.completed && styles.taskTitleDone]}>{item.completed ? '✅ ' : ''}{item.title}</Text>
               <Text style={styles.taskCategory}>{item.category}</Text>
             </TouchableOpacity>
           )}
         />
       )}
-      {/* Botón flotante "+" para nueva tarea */}
-      <TouchableOpacity 
-      style={styles.fab} 
-      onPress={handleAddPress}
-      >
+      <TouchableOpacity style={styles.fab} onPress={handleAddPress}>
         <Text style={styles.fabText}>+</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: MARGIN.marginS,
-    backgroundColor: COLORS.primary,
-  },
-
-  filters: {
-    flexDirection: 'row',
-    gap: 8,
-    marginBottom: MARGIN.marginM,
-  },
-  filterBtn: {
-    flex: 1,
-    paddingVertical: MARGIN.marginXS,
-    alignItems: 'center',
-    borderRadius: 8,
-    backgroundColor: COLORS.background,
-  },
-  filterActive: {
-    backgroundColor: COLORS.background,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-  },
-  filterTextActive: {
-    fontWeight: 'bold',
-    fontSize: SIZE.fontSmall,
-  },
-  btnText:{
-    fontSize: SIZE.fontSmall,
-  },
-  card: {
-    padding: MARGIN.marginS,
-    marginBottom: MARGIN.marginS,
-    backgroundColor: COLORS.card,
-    borderWidth: 1,
-    borderColor: COLORS.textLight,
-    borderRadius: 8,
-  },
-  cardDone: {
-    opacity: 0.6,
-  },
-  taskTitle: {
-    fontSize: SIZE.fontMedium,
-    fontWeight: 'bold',
-    marginBottom: 5,
-  },
-  taskTitleDone: {
-    textDecorationLine: 'line-through',
-    color: COLORS.textLight,
-  },
-  taskCategory: {
-    color: COLORS.textLight,
-  },
-  error: {
-    color: 'red',
-    fontSize: 14,
-    fontWeight: 'bold',
-    marginBottom: MARGIN.marginXS,
-  },
-  fab: {
-    position: 'absolute',
-    bottom: 20,
-    right: 20,
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    backgroundColor: COLORS.card,
-    alignItems: 'center',
-    justifyContent: 'center',
-    elevation: 4,
-  },
-  fabText: {
-    color: COLORS.primary,
-    fontSize: 32,
-    lineHeight: 34,
-    fontWeight: 'bold',
-  },
-});
