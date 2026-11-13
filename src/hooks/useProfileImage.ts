@@ -3,6 +3,7 @@ import * as ImagePicker from "expo-image-picker"
 import { doc, setDoc, getDoc } from "firebase/firestore"
 import { db } from "../config/firebaseConfig"
 import { useAppSelector } from "../store/hooks";
+import { Alert } from "react-native"
 
 export default function useProfileImage() {
     // Cargo el usuario traido de Firestore
@@ -12,13 +13,20 @@ export default function useProfileImage() {
     const guardarFoto = async ()  => {
         // Chequea que haya una sesion iniciada
         if (!user) return ;
-
+        const pickImage = async () => {
+                // Pedir permisos (necesario en dispositivos reales)
+                const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+                if (permissionResult.granted === false) {
+                    Alert.alert('Permiso requerido', 'Necesitamos acceso a tu galería para cambiar la foto.');
+                    return;
+                }
+            };
         const result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ["images"],
             allowsEditing: true,
             aspect:[1, 1],
-            quality:0.2,
-            base64: true
+            quality:0.2,    // Calidad media para no guardar un string Base64 gigante
+            base64: true    //Esto nos da la imagen como string para Firestore
         })
         if (!result.canceled && result.assets[0].base64) {
             const base64String = `data:image/jpeg;base64,${result.assets[0].base64}`
@@ -34,7 +42,7 @@ export default function useProfileImage() {
 
     const leerFoto = useCallback(async () => {
         try {
-            if (!user) return
+            if (!user) return;
             
             // Traer el documento user
             const docSnap = await getDoc(doc(db, "users", user.uid))
@@ -48,7 +56,7 @@ export default function useProfileImage() {
         } catch (error){
             console.error("Error al leer", error)
         }
-    }, [])
+    }, [user?.uid])
 
     return {
         foto,

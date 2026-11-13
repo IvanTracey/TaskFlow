@@ -10,13 +10,11 @@ export type AuthUser = {
 
 export type AuthState = {
   user: AuthUser | null;
-  token: string | null;
   isLoading: boolean; // true mientras Firebase revisa si ya habia una sesion guardada
 };
 
 const initialState: AuthState = {
   user: null,
-  token: null,
   isLoading: true,
 };
 
@@ -27,15 +25,13 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     // Se despacha desde el listener cuando hay usuario logueado
-    setSession: (state, action: PayloadAction<{ user: AuthUser; token: string }>) => {
+    setSession: (state, action: PayloadAction<{ user: AuthUser }>) => {
       state.user = action.payload.user;
-      state.token = action.payload.token;
       state.isLoading = false;
     },
     // Se despacha desde el listener cuando no hay usuario (o se cerro sesion)
     clearSession: (state) => {
       state.user = null;
-      state.token = null;
       state.isLoading = false;
     },
     // Actualizar la foto

@@ -160,7 +160,6 @@ export const styles = StyleSheet.create({
     paddingVertical: 10,
     position: 'absolute', 
     bottom: 30, 
-    right: 'center',
     backgroundColor: COLORS.background,
     alignSelf: 'center',
     justifyContent: 'center',

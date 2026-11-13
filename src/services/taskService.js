@@ -1,4 +1,3 @@
-import { db } from '../config/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 export const saveTaskToFirebase = async (taskData) => {
@@ -18,4 +17,3 @@ export const saveTaskToFirebase = async (taskData) => {
     throw error;
   }
 };
- minu

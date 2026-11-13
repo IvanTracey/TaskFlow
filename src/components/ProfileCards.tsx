@@ -1,5 +1,6 @@
 import { View, Text, Image, TouchableOpacity  } from "react-native"
 import { styles } from "../constants/styles";
+import Feather from '@expo/vector-icons/Feather';
 
 type Props = {
   name: string;
@@ -13,8 +14,8 @@ export function ProfileCard ({name, image, onChangeAvatar } : Props){
       {image ? (
         <Image source={{ uri: image }}style={styles.avatar}/>
       ) : (
-        <View style={styles.avatar}>
-          <Text>Sin avatar</Text>
+        <View style={styles.icon}>
+          <Feather name="camera-off" size={32} color="black" />
         </View>
       )}
       <Text style={styles.name}>{name}</Text>
