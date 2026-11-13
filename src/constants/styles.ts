@@ -182,6 +182,15 @@ export const styles = StyleSheet.create({
         fontSize: SIZE.fontMedium,
     },
 
+    email: { color: COLORS.textLight, marginBottom: 20 },
+    avatarContainer: { alignItems: 'center', marginBottom: 30 },
+    avatar: { width: 120, height: 120, borderRadius: 60, borderWidth: 3, borderColor: COLORS.primary },
+    avatarPlaceholder: { backgroundColor: COLORS.border, justifyContent: 'center', alignItems: 'center' },
+    avatarText: { fontSize: 40, fontWeight: 'bold', color: COLORS.textLight },
+    changePhotoBtn: { marginTop: 12, padding: 10 },
+    changePhotoText: { color: COLORS.primary, fontWeight: 'bold' },
+
+
     // Adicionales de TaskDetail
     // ✅ Estilos para marcar visualmente el estado
   done: { color: COLORS.success, fontWeight: 'bold' },
@@ -213,4 +222,5 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 300,
   },
+
 });

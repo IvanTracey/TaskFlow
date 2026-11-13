@@ -23,6 +23,12 @@
     "plugins": [
       "expo-status-bar",
       "expo-font"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "7aa43b98-19d2-43e0-b884-f4a5bf2532b5"
+      }
+    },
+    "owner": "ivcode"
   }
 }
