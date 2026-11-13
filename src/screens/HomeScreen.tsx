@@ -15,16 +15,15 @@ type HomeNavProp = NativeStackNavigationProp <TasksStackParamList, 'TaskList'>;
 
 export default function HomeScreen() {
   const navigation = useNavigation<HomeNavProp>();
-  // Declaracion del dispatch
   const dispatch = useAppDispatch();
 
   // useAppSelector lee/selecciona datos - cuando state cambia, trae el objeto tasks de state y asigna sus valores internos al array tareas y a la variable filter
   const { tasks, filter, error } = useAppSelector((state) => state.tasks);
 
   // Carga inicial: al montar la pantalla pedimos a Firestore las tareas del usuario
-  useEffect(() => {
-    dispatch(fetchTasks());
-  }, [dispatch]);
+  useEffect(
+    () => { dispatch(fetchTasks()) }, [dispatch]
+  );
 
   // Esto se recalcula solo cuando cambian tasks o filter (useSelector ya re-renderiza).
   const filteredTasks = tasks.filter((t) => {

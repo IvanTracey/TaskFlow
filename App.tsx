@@ -15,13 +15,16 @@ export default function App() {
     // - Se dispara al hacer logout (user null).
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
-          const token = await firebaseUser.getIdToken();
-          store.dispatch(setSession({
-              user: { uid: firebaseUser.uid, email: firebaseUser.email },
-              token,
-          }));
+        const token = await firebaseUser.getIdToken();
+        store.dispatch(setSession({
+          user: { 
+            uid: firebaseUser.uid, 
+            email: firebaseUser.email 
+          },
+          token,
+        }));
       } else {
-          store.dispatch(clearSession());
+        store.dispatch(clearSession());
       }
     });
 

@@ -1,5 +1,6 @@
 import { View, Text, TouchableOpacity, Alert } from "react-native"
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
+import { useFocusEffect } from "@react-navigation/native";
 import { styles } from "../constants/styles";
 import { ProfileCard } from "../components/ProfileCards"
 import { SafeAreaView  } from 'react-native-safe-area-context';
@@ -9,14 +10,17 @@ import { auth } from "../config/firebaseConfig";
 import * as ImagePicker from 'expo-image-picker';
 import { setUserAvatar } from '../store/slices/authSlice';
 import { saveUserAvatar } from '../services/userService';
+import useProfileImage  from "../hooks/useProfieImage"
 
 export function ProfileScreen(){
     const user = useAppSelector((state) => state.auth.user);
     // Nombre de la tarjeta: la parte del email antes del @ (Firebase solo nos da el email)
     const name = user?.email?.split("@")[0] ?? "";
     
-  const dispatch = useAppDispatch();
-  const [uploading, setUploading] = useState(false);
+    const dispatch = useAppDispatch();
+    const [uploading, setUploading] = useState(false);
+
+    const { foto, guardarFoto, leerFoto } = useProfileImage();
 
   const pickImage = async () => {
     // 1. Pedir permisos (necesario en dispositivos reales)
@@ -56,18 +60,22 @@ export function ProfileScreen(){
     }
   };
 
+  useFocusEffect(
+    useCallback( () => { leerFoto() }, [leerFoto] ) 
+);
+
   const handleLogout = async () => {
     await signOut(auth);
   };
+  
     return(
         <SafeAreaView  style={styles.container}>
             <View style={styles.log}>
                 <Text style={styles.title}>Perfil</Text>
                 <ProfileCard 
                     name={name}
-                    role=" - "
-                    image="https://static.wikia.nocookie.net/lossimpson/images/a/a8/Lisa.jpg/revision/latest/scale-to-width-down/128?cb=20131027072334&path-prefix=es"
-                    isActive = {true}>
+                    image={foto}
+                    onChangeAvatar={guardarFoto} >
                 </ProfileCard>
                 <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
                     <Text style={styles.logoutText}>Cerrar sesión</Text>
@@ -76,3 +84,4 @@ export function ProfileScreen(){
         </SafeAreaView>
     )
 }
+
