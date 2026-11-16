@@ -10,6 +10,7 @@ type TasksState = {
   tasks: Task[];
   filter: TaskFilter;
   loading: boolean;
+  saving: boolean;  
   error: string | null;
 };
 
@@ -18,6 +19,7 @@ const initialState: TasksState = {
   tasks: [],
   filter: 'all', // Por defecto, sin filtrar
   loading: false,
+  saving: false,
   error: null,
 };
 
@@ -120,6 +122,7 @@ const tasksSlice = createSlice({
   // Respuestas a las acciones asincronas (Firestore) y al cierre de sesion
   extraReducers: (builder) => {
     builder
+        // 1. CARGAR TAREAS
       .addCase(fetchTasks.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -132,23 +135,59 @@ const tasksSlice = createSlice({
         state.loading = false;
         state.error = action.payload ?? 'Error inesperado.';
       })
+
+    // 2. CREAR TAREA
+      .addCase(addTask.pending, (state) => {
+        state.saving = true;
+        state.error = null;
+      })
       .addCase(addTask.fulfilled, (state, action) => {
+        state.saving = false;
         state.tasks.unshift(action.payload);
       })
+      .addCase(addTask.rejected, (state, action) => {
+        state.saving = false;
+        state.error = action.payload ?? 'No se pudo crear la tarea.';
+      })
+
+    // 3. CAMBIAR ESTADO DE TAREA
+      .addCase(toggleTaskStatus.pending, (state) => {
+        state.saving = true;
+        state.error = null;
+      })
       .addCase(toggleTaskStatus.fulfilled, (state, action) => {
+        state.saving = false;
         const task = state.tasks.find((t) => t.id === action.payload.id);
         if (task) {
           task.completed = action.payload.completed;
         }
       })
+      .addCase(toggleTaskStatus.rejected, (state, action) => {
+        state.saving = false;
+        state.error = action.payload ?? 'No se pudo modificar la tarea.';
+      })
+      
+    // 4. ELIMINAR TAREA
+      .addCase(deleteTask.pending, (state) => {
+        state.saving = true;
+        state.error = null;
+      })
       .addCase(deleteTask.fulfilled, (state, action) => {
+        state.saving = false;
         state.tasks = state.tasks.filter((t) => t.id !== action.payload);
       })
-      // Al cerrar sesion vaciamos las tareas para que el proximo usuario no vea las del anterior
+      .addCase(deleteTask.rejected, (state, action) => {
+        state.saving = false;
+        state.error = action.payload ?? 'No se pudo eliminar la tarea.';
+      })
+    // 5. CERRAR SESIÓN
+    // Al cerrar sesion vaciamos las tareas para que el proximo usuario no vea las del anterior
       .addCase(clearSession, (state) => {
         state.tasks = [];
         state.filter = 'all';
         state.error = null;
+        state.loading = false;
+        state.saving = false;
       });
   },
 });

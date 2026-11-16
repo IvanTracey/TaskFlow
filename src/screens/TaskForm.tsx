@@ -3,7 +3,7 @@ import { Alert, KeyboardAvoidingView, Text, TextInput,TouchableOpacity, View } f
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { TasksStackParamList } from '../navigation/TasksStack';
-import { useAppDispatch } from '../store/hooks';
+import { useAppDispatch, useAppSelector  } from '../store/hooks';
 import { addTask } from '../store/slices/tasksSlice';
 import { styles } from '../constants/styles';
 
@@ -19,6 +19,9 @@ export default function TaskForm() {
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('Trabajo');
 
+  const saving = useAppSelector(
+    (state) => state.tasks.saving
+  );
   // Estados como flags, para saber si salgo del campo
   const [touchedTitle, setTouchedTitle] = useState(false);
   const [touchedDescription, setTouchedDescription] = useState(false);
@@ -39,7 +42,7 @@ export default function TaskForm() {
     setTouchedDescription(true);
 
     if(validateForm()){
-      // Despacha la accion addTask (guarda en Firestore). unwrap() lanza error si falla
+      // Despacha la accion addTask (guarda en Firestore). unwrap() lanza error si falla 
       try {
         await dispatch(
           addTask({
@@ -138,7 +141,9 @@ export default function TaskForm() {
           </View>
       </View>
       <TouchableOpacity style={styles.button} onPress={handleAddTask}>
-        <Text style={styles.buttonText}>Guardar</Text>
+        <Text style={styles.buttonText}>
+          {saving ? 'Guardando...' : 'Guardar'} 
+        </Text>
       </TouchableOpacity>
     </KeyboardAvoidingView>
   );

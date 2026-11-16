@@ -5,7 +5,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export type AuthUser = {
   uid: string;
   email: string | null;
-  avatarBase64?: string | null;
 };
 
 export type AuthState = {
@@ -34,14 +33,8 @@ const authSlice = createSlice({
       state.user = null;
       state.isLoading = false;
     },
-    // Actualizar la foto
-    setUserAvatar: (state, action: PayloadAction<string>) => {
-      if (state.user) {
-        state.user.avatarBase64 = action.payload;
-      }
-    },
   },
 });
 
-export const { setSession, clearSession, setUserAvatar  } = authSlice.actions;
+export const { setSession, clearSession  } = authSlice.actions;
 export default authSlice.reducer;

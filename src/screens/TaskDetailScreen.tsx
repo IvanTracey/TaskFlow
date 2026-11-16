@@ -24,9 +24,7 @@ export default function TaskDetailScreen() {
   );
 
  // Si la tarea no existe (por ejemplo, la borraron y volvimos), mostramos nada
-  if (!task) {
-    return null;
-  }
+  if (!task) { return null; }
 
   //  Handler para toggle
   //  (unwrap() lanza error si Firestore falla, y se lo avisamos al usuario)

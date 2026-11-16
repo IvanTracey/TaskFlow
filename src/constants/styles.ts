@@ -73,36 +73,25 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: COLORS.card,
     borderRadius: 16,
-    padding: MARGIN.marginL,
+    paddingVertical: MARGIN.marginL*2,
     margin: MARGIN.marginM,
     borderWidth: 1,
     borderColor: COLORS.border,
   },
   
   name: {
-    fontSize: SIZE.fontLarge,
+    fontSize: SIZE.fontMedium,
     fontWeight: 'bold',
     color: COLORS.text,
     margin: MARGIN.marginS,
   },
-
-  
-    email: { 
-      color: COLORS.textLight, marginBottom: 20 },
-    avatarContainer: { 
-      alignItems: 'center', marginBottom: 30 },
-    avatar: { 
-      width: 120, height: 120, borderRadius: 60, borderWidth: 3, borderColor: COLORS.primary },
-    avatarPlaceholder: { 
-      backgroundColor: COLORS.border, justifyContent: 'center', alignItems: 'center' },
-    avatarText: { 
-      fontSize: 40, fontWeight: 'bold', color: COLORS.textLight },
-    changePhotoBtn: { 
-      marginTop: 12, padding: 10 },
-    changePhotoText: { 
-      color: COLORS.primary, fontWeight: 'bold' },
-
-
+  avatar: { 
+    width: 120, 
+    height: 120, 
+    borderRadius: 60, 
+    borderWidth: 2.5, 
+    borderColor: COLORS.primary 
+  },
 
   // Adicionales de HomeScreen
    filters: {

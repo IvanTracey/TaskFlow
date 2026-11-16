@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from "react-native"
+import { View, Text, TouchableOpacity, Alert } from "react-native"
 import { useCallback } from 'react';
 import { useFocusEffect } from "@react-navigation/native";
 import { styles } from "../constants/styles";
@@ -13,8 +13,9 @@ export function ProfileScreen(){
     const user = useAppSelector((state) => state.auth.user);
     // Nombre de la tarjeta: uso el mail ingresado
     const name = user?.email ?? "";    
-    const { foto, guardarFoto, leerFoto } = useProfileImage();
+    const { foto, guardarFoto, leerFoto, loading, error } = useProfileImage();
 
+    
 
     // Cuando se pone foco en esta screen, se lee la foto y actualiza
     useFocusEffect(
@@ -22,7 +23,11 @@ export function ProfileScreen(){
     );
     // Cierra sesion
     const handleLogout = async () => {
+        try{
         await signOut(auth);
+    } catch{
+            Alert.alert("Error al querer cerrar sesión")
+        }
     };
 
     return(
