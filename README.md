@@ -26,6 +26,27 @@ La recomendacion de como usar el repo es que cada persona use su propia base de 
 5. Crea el .env.local con sus claves y corre npx expo start.
 6. Escanea el QR con Expo Go, que tiene que ser compatible con SDK 58.
 
+
+------------ REGLAS DE FIREBASE
+
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /tasks/{id} {
+      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+      allow read, update, delete: if request.auth != null && resource.data.userId == request.auth.uid;
+    }
+  }
+  
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}
+
 ------------ FUNCIONALIDADES Y NAVEGACIÓN
 
 La pantalla inicial muestra un login para poder ingresar a la cuenta de un usuario donde se podran ver y manipular sus tareas. En caso de ya estar logueado, directamente te muestra su sesión abierta. Cada cuenta maneja sus propias tareas y se mantiene sincronizado con Firebase. De querer registra un nuevo usuario, te deriva a otra screen donde se ingresa el email y la contraseña en dos oportunidades, para poder crear una nueva cuenta.
