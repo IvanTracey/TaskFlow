@@ -141,7 +141,7 @@ export default function TaskForm() {
           </View>
       </View>
       <TouchableOpacity style={styles.button} onPress={handleAddTask}>
-        <Text style={styles.buttonText}>
+        <Text style={styles.buttonText} disabled={saving}>
           {saving ? 'Guardando...' : 'Guardar'} 
         </Text>
       </TouchableOpacity>
