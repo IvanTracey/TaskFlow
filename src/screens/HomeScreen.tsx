@@ -9,6 +9,7 @@ import { styles } from '../constants/styles';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import { fetchTasks, setFilter } from '../store/slices/tasksSlice';
 import { TaskFilter } from '../constants/types';
+import { COLORS } from '../constants/theme';
 
 // Tipamos la navegación para tener autocompletado en navigate()
 type HomeNavProp = NativeStackNavigationProp <TasksStackParamList, 'TaskList'>;
@@ -36,7 +37,7 @@ export default function HomeScreen() {
     return true; // 'all'
   });
 
-  // Ahora navegamos al detalle pasando el id (tambien indicando el tipo, por ser TypeScript).
+  // Ahora navegamos al detalle pasando el id
   const handleTaskPress = (id: string) => {
     // Solo pasamos el id: el detalle busca los datos en el store
     navigation.navigate('TaskDetail', { id });
@@ -67,7 +68,7 @@ export default function HomeScreen() {
       </View>
 
       {loading ? 
-        <ActivityIndicator size="large" color="#0000ff" animating={loading}></ActivityIndicator> : (
+        <ActivityIndicator size="large" color={COLORS.primary}></ActivityIndicator> : (
         <>
         {/* Si fallo la carga desde Firestore (ej. sin internet) avisamos en pantalla */}
         {error && <Text style={styles.error}>{error}</Text>}

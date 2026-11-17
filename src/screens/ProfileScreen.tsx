@@ -13,7 +13,7 @@ export function ProfileScreen(){
     const user = useAppSelector((state) => state.auth.user);
     // Nombre de la tarjeta: uso el mail ingresado
     const name = user?.email ?? "";    
-    const { foto, guardarFoto, leerFoto } = useProfileImage();
+    const { foto, guardarFoto, leerFoto, loadingFoto } = useProfileImage();
 
     // Cuando se pone foco en esta screen, se lee la foto y actualiza
     useFocusEffect(
@@ -36,7 +36,8 @@ export function ProfileScreen(){
                 <ProfileCard 
                     name={name}
                     image={foto}
-                    onChangeAvatar={guardarFoto} >
+                    onChangeAvatar={guardarFoto}
+                    loading={loadingFoto} >
                 </ProfileCard>
                 <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
                     <Text style={styles.logoutText}>Cerrar sesión</Text>

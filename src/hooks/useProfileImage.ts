@@ -10,6 +10,7 @@ export default function useProfileImage() {
 
     const [foto, setFoto] = useState<string | null>(null)
     const [loading, setLoading] = useState(false)
+    const [loadingFoto, setLoadingFoto] = useState(true)
     const [error, setError] = useState<string | null>(null)
 
     // Selecciona una foto y la guarda
@@ -48,7 +49,7 @@ export default function useProfileImage() {
             // Actualizar la imagen de la pantalla
             setFoto(base64String);
         } catch (error) {
-            setError("No pudimios guardar la imagen")
+            setError("No se pudo guardar la imagen")
             Alert.alert('Error', 'No se pudo guardar la imagen.');
         } finally{
             setLoading(false);
@@ -56,8 +57,12 @@ export default function useProfileImage() {
     }
     
     const leerFoto = useCallback(async () => {
-        if (!user) return;
+        if (!user){
+            setLoadingFoto(false);
+            return; 
+        }
         try {
+            setLoadingFoto(true);
             setLoading(true);
             setError(null);
             // El servicio devuelve la imagen o null
@@ -67,14 +72,16 @@ export default function useProfileImage() {
             setError("No se pudo cargar la foto")
         } finally{
             setLoading(false);
+            setLoadingFoto(false);
         }
-        }, [user?.uid])
+    }, [user?.uid])
  
     return {
         foto,
         guardarFoto,
         leerFoto, 
         loading,
+        loadingFoto,
         error,
     };
 }

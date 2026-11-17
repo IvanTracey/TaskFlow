@@ -5,6 +5,9 @@ import { db } from '../../config/firebaseConfig';
 import { Task, TaskFilter } from '../../constants/types';
 import { AuthState, clearSession } from './authSlice';
 
+//  Busco prevenir que al quedarse sin internet y haber realizado una tarea, no se duplique
+import NetInfo from '@react-native-community/netinfo';
+
 // Tipo del estado que vive en el store global. Aca se guardan las tareas y el filtro elegido a partir de los botones en el HomeScreen.
 type TasksState = {
   tasks: Task[];
@@ -66,8 +69,11 @@ export const addTask = createAsyncThunk<
   Task,
   { title: string; description: string; category: string },
   ThunkConfig
->('tasks/add', async (data, { getState, rejectWithValue }) => {
+>('tasks/add', async (data, { getState, rejectWithValue }) => {  
   try {
+    // De esta manera, si no hay internet, no envia la peticion
+    if (!(await NetInfo.fetch()).isConnected)
+    return rejectWithValue('Sin conexión. Intentá de nuevo cuando tengas internet.');
     const fields = {
       ...data,
       userId: getUid(getState),
@@ -90,6 +96,9 @@ export const toggleTaskStatus = createAsyncThunk<
   const task = (getState() as { tasks: TasksState }).tasks.tasks.find((t) => t.id === id);
   if (!task) return rejectWithValue('La tarea no existe.');
   try {
+    if (!(await NetInfo.fetch()).isConnected)
+    return rejectWithValue('Sin conexión. Intentá de nuevo cuando tengas internet.');
+
     await withTimeout(updateDoc(doc(db, 'tasks', id), { completed: !task.completed }));
     return { id, completed: !task.completed };
   } catch {
@@ -101,6 +110,9 @@ export const deleteTask = createAsyncThunk<string, string, ThunkConfig>(
   'tasks/delete',
   async (id, { rejectWithValue }) => {
     try {
+      if (!(await NetInfo.fetch()).isConnected)
+      return rejectWithValue('Sin conexión. Intentá de nuevo cuando tengas internet.');
+    
       await withTimeout(deleteDoc(doc(db, 'tasks', id)));
       return id;
     } catch {

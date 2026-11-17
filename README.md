@@ -5,7 +5,7 @@ Esta app es el proyecto final del curso dictado por CoderHouse. App de tareas.
 Para ejecutarlo localmente se debe tener instalado Node "npm install" y en consola escribir: "npx expo start".
 Una vez cargado, se puede escanear el QR desde el celular con la aplicacion Expo Go. Puedes apretar la letra "a" y correrlo en un emulador que hayas descargado y configurado. 
 
-Para la entrega final, se proporciona la URL de descarga directa de la APK con al app en funcionamiento.
+Para la entrega final, se proporciona la URL de descarga directa de la APK de la app en funcionamiento.
 
 ------------ INFORMACIÓN NECESARIA DE FIREBASE
 
@@ -29,7 +29,7 @@ La recomendacion de como usar el repo es que cada persona use su propia base de 
 
 ------------ FUNCIONALIDADES Y NAVEGACIÓN
 
-La pantalla inicial muestra un login para poder ingresar a la cuenta de un usuario donde se podran ver y manipular sus tareas. En caso de ya estar logueado, directamente te muestra su sesión abierta. Cada cuenta maneja sus propias tareas y se mantiene sincronizado con Firebase. De querer registra un nuevo usuario, te deriva a otra screen donde se ingresa el email y la contraseña en dos oportunidades, para poder crear una nueva cuenta.
+La pantalla inicial muestra un login para poder ingresar a la cuenta de un usuario donde se podran ver y manipular sus tareas. En caso de ya estar logueado, directamente te muestra su sesión abierta. Cada cuenta maneja sus propias tareas y se mantiene sincronizado con Firebase. De querer registrar un nuevo usuario, te deriva a otra screen donde se ingresa el email y la contraseña en dos oportunidades, para poder crear una nueva cuenta.
 
 Una vez logueado:
 La pantalla principal muestra botones para filtrar las tareas (Todas, pendientes y completadas), el listado de tareas correspondiente a la selección, y en caso de no haber ninguna tarea, un mensaje notificandolo. 
@@ -38,5 +38,5 @@ En ella existe el boton "+", donde te envia a otra pantalla (navegacion stack). 
     
 Si se presiona sobre una de las tareas, se muestra el detalle de la misma (Título, estado, descripción, categoría y fecha). Además de botones con los cuales podes marcar la tarea como "Completada" o eliminarla. Por último, el boton de "Volver" que completa la navegación. 
 
-En HomeScreen tambien existe una barra horizontal que permite una navegacion tab hacia la pantalla de perfiles. Alli se muestra el email de la cuenta abierta, un nombre, una foto con la posibilidad de cambiarla y un boton para poder cerrar sesion. La opción correspondiente a la página actual, posee el color negro.
+En HomeScreen tambien existe una barra horizontal que permite una navegacion tab hacia la pantalla de perfiles. En esta se muestra el email de la cuenta abierta, un nombre, una foto con la posibilidad de cambiarla y un boton para poder cerrar sesion. La opción correspondiente a la página actual, posee el color negro.
 

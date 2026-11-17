@@ -15,14 +15,17 @@
         "foregroundImage": "./src/assets/android-icon-foreground.png",
         "monochromeImage": "./src/assets/android-icon-monochrome.png"
       },
+      "package": "com.ivocode.taskflow",
       "predictiveBackGestureEnabled": false
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
     },
     "plugins": [
-      "expo-status-bar",
-      "expo-font"
+      "expo-font",
+      ["expo-image-picker", {
+        "photosPermission": "TaskFlow necesita acceso a tus fotos para elegir tu avatar."
+      }]
     ],
     "extra": {
       "eas": {
