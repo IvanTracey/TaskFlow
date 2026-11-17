@@ -22,8 +22,8 @@ export const styles = StyleSheet.create({
   label: {
     fontSize: SIZE.fontMedium,
     fontWeight: 'bold',
-    marginBottom: 6,
     marginTop: MARGIN.marginS,
+    marginBottom: MARGIN.marginXS,
   },
   input: {
     borderWidth: 1,
@@ -44,15 +44,15 @@ export const styles = StyleSheet.create({
     marginTop: 4,
   },
   button: {
-    marginTop: MARGIN.marginS,
-    padding: MARGIN.marginS,
+    marginTop: MARGIN.marginL,
+    padding: MARGIN.marginM,
     backgroundColor: COLORS.background,
     borderRadius: 8,
     borderWidth: 1,
-    alignItems: 'center',
+    alignItems: 'center',   
   },
   buttonDisabled: {
-    opacity: 0.6,
+    opacity: 0.4,
   },
   buttonText: {
     fontWeight: 'bold',
@@ -127,9 +127,6 @@ export const styles = StyleSheet.create({
     borderColor: COLORS.textLight,
     borderRadius: 8,
   },
-  cardDone: {
-    opacity: 0.6,
-  },
   taskTitle: {
     fontSize: SIZE.fontMedium,
     fontWeight: 'bold',
@@ -183,7 +180,7 @@ export const styles = StyleSheet.create({
     fontSize: SIZE.fontMedium,
   },
   description: {
-    height: 200,
+    height: 220,
     margin: MARGIN.marginXS,
   },
 
@@ -211,7 +208,6 @@ export const styles = StyleSheet.create({
   done: { color: COLORS.success, fontWeight: 'bold' },
   pending: { color: COLORS.textLight, fontWeight: 'bold' },
 
-  // ✅ Botón toggle (verde)
   toggleButton: {
     marginTop: MARGIN.marginM,
     backgroundColor: COLORS.success,
@@ -220,7 +216,6 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  // ✅ Botón delete (rojo)
   deleteButton: {
     marginTop: MARGIN.marginXS,
     backgroundColor: COLORS.danger,

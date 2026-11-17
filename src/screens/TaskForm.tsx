@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Alert, KeyboardAvoidingView, Text, TextInput,TouchableOpacity, View } from 'react-native';
+import { Alert, KeyboardAvoidingView, Text, TextInput,TouchableOpacity, View, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { TasksStackParamList } from '../navigation/TasksStack';
@@ -77,74 +77,79 @@ export default function TaskForm() {
   const descriptionError = touchedDescription && description.trim().length < 10;
   
   return (
-    <KeyboardAvoidingView style={styles.container}>
+    <KeyboardAvoidingView style={styles.container} >
       <Text style={styles.title}>Tarea nueva</Text>
-      {/* Sector del titulo*/}
-      <View>
-        <Text style={styles.label}>Título</Text>
-        <TextInput 
-        // Aplica el estilo base, y si hay error, le suma el borde rojo
-          style={[styles.input, titleError && styles.errorInput,]}
-          placeholder="Título de la tarea"
-          value={title}
-          //Captura el cambio y envia
-          onChangeText={setTitle} 
-          // Cuando el usuario sale del input, marca que ya lo tocó
-          onBlur={() => setTouchedTitle(true)}
-          // Pone la primera letra de cada oración en mayúscula 
-          autoCapitalize="sentences"
-          // Cambia el botón del teclado del celular por uno que dice "Siguiente" 
-          returnKeyType="next" 
-        />
-        {/* Si titleError es true, dibuja en la pantalla el siguiente texto de error */}
-        {titleError && (//le avisan a react que es un bloque de codigo.
-          <Text style={styles.error}>
-            El título debe tener al menos 5 caracteres.
-          </Text>
-        )}
-        
-        <Text style={styles.label}>Descripción</Text>
-        <TextInput //Para añadir estilos uso un array
-          style={[styles.input, styles.description, descriptionError && styles.errorInput]}
-          placeholder="Descripción"
-          value={description}
-          onChangeText={setDescription}
-          onBlur={() => setTouchedDescription(true)}
-          autoCapitalize="sentences"
-          multiline // Permite que el texto salte de línea y sea un campo alto
-        />
-
-        {descriptionError && (
-          <Text style={styles.error}>
-            La descripción debe tener al menos 10 caracteres.
-          </Text>
-        )}
-      </View>
-
-      {/* Sector de la categoria*/}
-      <View>
-        <Text style={styles.label}>Categoría</Text>
-        <View style={styles.categories}>
-          {['Trabajo', 'Estudio', 'Personal'].map((item) => (
-            <TouchableOpacity
-              // Aplica el diseño de botón común, pero si coincide con la categoría seleccionada, aplica el estilo resaltado
-              key={item}
-              style={[
-                styles.category, 
-                category === item && styles.selectedCategory,
-              ]}
-              onPress={() => setCategory(item)}
-            >
-              <Text style={styles.text}>{item}</Text>
-            </TouchableOpacity>
-          ))}
+      <ScrollView>
+        {/* Sector del titulo*/}
+        <View>
+          <Text style={styles.label}>Título</Text>
+          <TextInput 
+          // Aplica el estilo base, y si hay error, le suma el borde rojo
+            style={[styles.input, titleError && styles.errorInput,]}
+            placeholder="Título de la tarea"
+            value={title}
+            //Captura el cambio y envia
+            onChangeText={setTitle} 
+            // Cuando el usuario sale del input, marca que ya lo tocó
+            onBlur={() => setTouchedTitle(true)}
+            // Pone la primera letra de cada oración en mayúscula 
+            autoCapitalize="sentences"
+            // Cambia el botón del teclado del celular por uno que dice "Siguiente" 
+            returnKeyType="next" 
+          />
+          {/* Si titleError es true, dibuja en la pantalla el siguiente texto de error */}
+          {titleError && (//le avisan a react que es un bloque de codigo.
+            <Text style={styles.error}>
+              El título debe tener al menos 5 caracteres.
+            </Text>
+          )}
           </View>
-      </View>
-      <TouchableOpacity style={styles.button} onPress={handleAddTask}>
-        <Text style={styles.buttonText} disabled={saving}>
-          {saving ? 'Guardando...' : 'Guardar'} 
-        </Text>
-      </TouchableOpacity>
+          <View>
+          <Text style={styles.label}>Descripción</Text>
+          <TextInput //Para añadir estilos uso un array
+            style={[styles.input, styles.description, descriptionError && styles.errorInput]}
+            placeholder="Descripción"
+            value={description}
+            onChangeText={setDescription}
+            onBlur={() => setTouchedDescription(true)}
+            autoCapitalize="sentences"
+            multiline // Permite que el texto salte de línea y sea un campo alto
+          />
+
+          {descriptionError && (
+            <Text style={styles.error}>
+              La descripción debe tener al menos 10 caracteres.
+            </Text>
+          )}
+        </View>
+
+        {/* Sector de la categoria*/}
+        <View>
+          <Text style={styles.label}>Categoría</Text>
+          <View style={styles.categories}>
+            {['Trabajo', 'Estudio', 'Personal'].map((item) => (
+              <TouchableOpacity
+                // Aplica el diseño de botón común, pero si coincide con la categoría seleccionada, aplica el estilo resaltado
+                key={item}
+                style={[
+                  styles.category, 
+                  category === item && styles.selectedCategory,
+                ]}
+                onPress={() => setCategory(item)}
+              >
+                <Text style={styles.text}>{item}</Text>
+              </TouchableOpacity>
+            ))}
+            </View>
+        </View>
+        <TouchableOpacity 
+          style={ [styles.button, saving && styles.buttonDisabled] } 
+          onPress={handleAddTask} disabled={saving}>
+          <Text style={styles.buttonText}>
+            {saving ? 'Guardando...' : 'Guardar'} 
+          </Text>
+        </TouchableOpacity>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 }

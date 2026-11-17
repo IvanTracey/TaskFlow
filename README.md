@@ -3,7 +3,7 @@ Esta app es el proyecto final del curso dictado por CoderHouse. App de tareas.
 ------------ COMPILACION
 
 Para ejecutarlo localmente se debe tener instalado Node "npm install" y en consola escribir: "npx expo start".
-Una vez cargado, se puede escanear el QR desde el celular con la aplicacion Expo Go. Puedes apretar la letra "a" y correrlo en un emulador que hayas descargado y configurado. O tambien puedes correrlo en un navegador web al apretar "w", pero para ello debes instalar lo siguiente: "npx expo install react-dom react-native-web". Para el uso de Redux Toolkit, se la instalo con el siguiente comando: npm install @reduxjs/toolkit react-redux.
+Una vez cargado, se puede escanear el QR desde el celular con la aplicacion Expo Go. Puedes apretar la letra "a" y correrlo en un emulador que hayas descargado y configurado. Para el uso de Redux Toolkit, se la instalo con el siguiente comando: npm install @reduxjs/toolkit react-redux.
 
 Para la entrega final, se proporciona la URL de descarga directa de la APK con al app en funcionamiento.
 

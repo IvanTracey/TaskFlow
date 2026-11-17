@@ -13,14 +13,13 @@ export function ProfileScreen(){
     const user = useAppSelector((state) => state.auth.user);
     // Nombre de la tarjeta: uso el mail ingresado
     const name = user?.email ?? "";    
-    const { foto, guardarFoto, leerFoto, loading, error } = useProfileImage();
-
-    
+    const { foto, guardarFoto, leerFoto } = useProfileImage();
 
     // Cuando se pone foco en esta screen, se lee la foto y actualiza
     useFocusEffect(
         useCallback( () => { leerFoto() }, [leerFoto] ) 
     );
+    
     // Cierra sesion
     const handleLogout = async () => {
         try{

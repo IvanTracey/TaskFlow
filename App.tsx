@@ -13,7 +13,7 @@ export default function App() {
     // - Se dispara al arrancar la app (recupera sesión persistida).
     // - Se dispara al hacer login (user con uid).
     // - Se dispara al hacer logout (user null).
-    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       if (firebaseUser) {
         store.dispatch(setSession({
           user: { 

@@ -17,8 +17,6 @@ const initialState: AuthState = {
   isLoading: true,
 };
 
-// Este slice solo guarda la sesion. El login y el registro se hacen en sus pantallas,
-// y el listener onAuthStateChanged (en AppNavigator) despacha estas acciones.
 const authSlice = createSlice({
   name: 'auth',
   initialState,
