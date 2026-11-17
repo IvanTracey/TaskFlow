@@ -6,6 +6,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../config/firebaseConfig';
 import { AuthStackParamList } from '../navigation/AuthStack';
 import { styles } from '../constants/styles';
+import { emailRegex } from '../utils/validation';
 
 type RegisterNavProp = NativeStackNavigationProp<AuthStackParamList, 'Register'>;
 
@@ -25,7 +26,7 @@ export default function RegisterScreen() {
   // Funcion de validacion (Firebase exige al menos 6 caracteres en la contraseña)
   const validateForm = () => {
     return (
-      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()) &&
+      emailRegex.test(email.trim()) &&
       password.length >= 6 &&
       confirm === password
     );
@@ -72,7 +73,7 @@ export default function RegisterScreen() {
     }
   };
 
-  const emailError = touchedEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+  const emailError = touchedEmail && !emailRegex.test(email.trim());
   const passwordError = touchedPassword && password.length < 6;
   const confirmError = touchedConfirm && confirm !== password;
 

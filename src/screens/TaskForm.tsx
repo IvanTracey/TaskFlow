@@ -79,7 +79,7 @@ export default function TaskForm() {
   return (
     <KeyboardAvoidingView style={styles.container} >
       <Text style={styles.title}>Tarea nueva</Text>
-      <ScrollView>
+      <ScrollView keyboardShouldPersistTaps="handled">
         {/* Sector del titulo*/}
         <View>
           <Text style={styles.label}>Título</Text>
@@ -103,8 +103,8 @@ export default function TaskForm() {
               El título debe tener al menos 5 caracteres.
             </Text>
           )}
-          </View>
-          <View>
+        </View>
+        <View>
           <Text style={styles.label}>Descripción</Text>
           <TextInput //Para añadir estilos uso un array
             style={[styles.input, styles.description, descriptionError && styles.errorInput]}
@@ -123,24 +123,24 @@ export default function TaskForm() {
           )}
         </View>
 
-        {/* Sector de la categoria*/}
-        <View>
-          <Text style={styles.label}>Categoría</Text>
-          <View style={styles.categories}>
-            {['Trabajo', 'Estudio', 'Personal'].map((item) => (
-              <TouchableOpacity
-                // Aplica el diseño de botón común, pero si coincide con la categoría seleccionada, aplica el estilo resaltado
-                key={item}
-                style={[
-                  styles.category, 
-                  category === item && styles.selectedCategory,
-                ]}
-                onPress={() => setCategory(item)}
-              >
-                <Text style={styles.text}>{item}</Text>
-              </TouchableOpacity>
-            ))}
-            </View>
+      {/* Sector de la categoria*/}
+      <View>
+        <Text style={styles.label}>Categoría</Text>
+        <View style={styles.categories}>
+          {['Trabajo', 'Estudio', 'Personal'].map((item) => (
+            <TouchableOpacity
+              // Aplica el diseño de botón común, pero si coincide con la categoría seleccionada, aplica el estilo resaltado
+              key={item}
+              style={[
+                styles.category, 
+                category === item && styles.selectedCategory,
+              ]}
+              onPress={() => setCategory(item)}
+            >
+              <Text style={styles.text}>{item}</Text>
+            </TouchableOpacity>
+          ))}
+          </View>
         </View>
         <TouchableOpacity 
           style={ [styles.button, saving && styles.buttonDisabled] } 

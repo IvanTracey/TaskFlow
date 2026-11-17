@@ -217,7 +217,7 @@ export const styles = StyleSheet.create({
   },
 
   deleteButton: {
-    marginTop: MARGIN.marginXS,
+    marginTop: MARGIN.marginS,
     backgroundColor: COLORS.danger,
     padding: 15,
     borderRadius: 8,

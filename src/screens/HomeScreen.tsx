@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { SafeAreaView  } from 'react-native-safe-area-context';
-import { FlatList,Text,TouchableOpacity,View} from 'react-native';
+import { FlatList,Text,TouchableOpacity,View,ActivityIndicator} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import EmptyState from '../components/EmptyState';
@@ -19,6 +19,10 @@ export default function HomeScreen() {
 
   // useAppSelector lee/selecciona datos - cuando state cambia, trae el objeto tasks de state y asigna sus valores internos al array tareas y a la variable filter
   const { tasks, filter, error } = useAppSelector((state) => state.tasks);
+
+ const loading = useAppSelector(
+      (state) => state.tasks.loading
+    );
 
   // Carga inicial: al montar la pantalla pedimos a Firestore las tareas del usuario
   useEffect(
@@ -45,6 +49,7 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView  style={styles.container}>
+
       {/*  UI de filtros: 3 botones que disparan setFilter */}
       <View style={styles.filters}>
         {(['all', 'pending', 'completed'] as TaskFilter[]).map((f) => (
@@ -61,26 +66,32 @@ export default function HomeScreen() {
         ))}
       </View>
 
-      {/* Si fallo la carga desde Firestore (ej. sin internet) avisamos en pantalla */}
-      {error && <Text style={styles.error}>{error}</Text>}
-
-      {filteredTasks.length === 0 ? (
-        <EmptyState />
-      ) : ( 
-        <FlatList
-          // Array con la informacion
-          data={filteredTasks}
-          // Identificador
-          keyExtractor={(item) => item.id}
-          // Lo que se muestra en cada iteracion
-          renderItem={({ item }) => (
+      {loading ? 
+        <ActivityIndicator size="large" color="#0000ff" animating={loading}></ActivityIndicator> : (
+        <>
+        {/* Si fallo la carga desde Firestore (ej. sin internet) avisamos en pantalla */}
+        {error && <Text style={styles.error}>{error}</Text>}
+        
+        {filteredTasks.length === 0 ? (
+          <EmptyState />
+          ) : ( 
+          <FlatList
+            // Array con la informacion
+            data={filteredTasks}
+            // Identificador
+            keyExtractor={(item) => item.id}
+            // Lo que se muestra en cada iteracion
+            renderItem={({ item }) => (
             <TouchableOpacity style={styles.card} onPress={() => handleTaskPress(item.id)}>
               <Text style={[styles.taskTitle, item.completed && styles.taskTitleDone]}>{item.completed ? '✅ ' : ''}{item.title}</Text>
               <Text style={styles.taskCategory}>{item.category}</Text>
             </TouchableOpacity>
-          )}
-        />
+            )}
+          />
+        )}
+        </>
       )}
+
       <TouchableOpacity style={styles.fab} onPress={handleAddPress}>
         <Text style={styles.fabText}>+</Text>
       </TouchableOpacity>

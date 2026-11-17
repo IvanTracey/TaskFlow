@@ -14,6 +14,7 @@ export default function TaskDetailScreen() {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
 
+
   // Recuperamos los params que enviamos desde HomeScreen
   const { id } = route.params;
 

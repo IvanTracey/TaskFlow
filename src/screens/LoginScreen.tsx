@@ -6,6 +6,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../config/firebaseConfig';
 import { AuthStackParamList } from '../navigation/AuthStack';
 import { styles } from '../constants/styles';
+import { emailRegex } from '../utils/validation'
 
 
 type LoginNavProp = NativeStackNavigationProp<AuthStackParamList, 'Login'>;
@@ -23,7 +24,7 @@ export default function LoginScreen() {
 
   // Funcion de validacion
   const validateForm = () => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()) && password.length > 0;
+    return emailRegex.test(email.trim()) && password.length > 0;
   };
 
   // Traduce el codigo de error de Firebase a un mensaje claro
@@ -68,7 +69,7 @@ export default function LoginScreen() {
     }
   };
 
-  const emailError = touchedEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+  const emailError = touchedEmail && !emailRegex.test(email.trim());
   const passwordError = touchedPassword && password.length === 0;
 
   return (
