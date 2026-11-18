@@ -217,7 +217,7 @@ export const styles = StyleSheet.create({
   },
 
   deleteButton: {
-    marginTop: MARGIN.marginS,
+    marginTop: MARGIN.marginXS,
     backgroundColor: COLORS.danger,
     padding: 15,
     borderRadius: 8,
@@ -232,5 +232,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 300,
   },
+
+  // Adicional de  Activ
+
 
 });

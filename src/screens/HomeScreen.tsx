@@ -64,11 +64,9 @@ export default function HomeScreen() {
       </View>
 
       {loading ? 
-        <ActivityIndicator size="large" color={COLORS.primary}></ActivityIndicator> : (
+        <ActivityIndicator style={{ flex: 1 }} size="large" color={COLORS.text}></ActivityIndicator> : (
         <>
         {/* Si fallo la carga desde Firestore (ej. sin internet) avisamos en pantalla */}
-        {error && <Text style={styles.error}>{error}</Text>}
-        
         {filteredTasks.length === 0 ? (
           <EmptyState />
           ) : ( 
