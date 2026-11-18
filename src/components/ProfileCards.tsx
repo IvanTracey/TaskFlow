@@ -1,7 +1,6 @@
 import { View, Text, Image, TouchableOpacity,ActivityIndicator } from "react-native"
 import { styles } from "../constants/styles";
 import Feather from '@expo/vector-icons/Feather';
-import { useAppSelector } from "../store/hooks";
 
 type Props = {
   name: string;

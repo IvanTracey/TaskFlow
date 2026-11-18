@@ -7,7 +7,11 @@
     "icon": "./src/assets/icon.png",
     "userInterfaceStyle": "light",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ivcode.taskflow",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -15,18 +19,12 @@
         "foregroundImage": "./src/assets/android-icon-foreground.png",
         "monochromeImage": "./src/assets/android-icon-monochrome.png"
       },
-      "package": "com.ivocode.taskflow",
+      "package": "com.ivcode.taskflow",
       "predictiveBackGestureEnabled": false
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
     },
-    "plugins": [
-      "expo-font",
-      ["expo-image-picker", {
-        "photosPermission": "TaskFlow necesita acceso a tus fotos para elegir tu avatar."
-      }]
-    ],
     "extra": {
       "eas": {
         "projectId": "7aa43b98-19d2-43e0-b884-f4a5bf2532b5"

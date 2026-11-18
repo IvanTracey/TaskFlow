@@ -9,12 +9,12 @@ export default function EmptyState() {
     return(
         <View style={styles.containerEmpty}>
             <Text style={styles.icon}>📋</Text>
-            {filter == "all" ? 
+            {filter === "all" ? 
                 <>
                     <Text style={styles.text}>¡No hay ninguna tarea en la lista!</Text>
                     <Text> Puedes crear tareas apretando en "+"</Text>
                 </> :
-            filter == "completed" ? 
+            filter === "completed" ? 
                 <>
                     <Text style={styles.text}>¡No hay tareas completadas!</Text>
                     <Text> Ponte a realizarlas!</Text>

@@ -4,9 +4,8 @@ import { addDoc, collection, deleteDoc, doc, getDocs, query, updateDoc, where } 
 import { db } from '../../config/firebaseConfig';
 import { Task, TaskFilter } from '../../constants/types';
 import { AuthState, clearSession } from './authSlice';
+import { network } from "../../utils/network"
 
-//  Busco prevenir que al quedarse sin internet y haber realizado una tarea, no se duplique
-import NetInfo from '@react-native-community/netinfo';
 
 // Tipo del estado que vive en el store global. Aca se guardan las tareas y el filtro elegido a partir de los botones en el HomeScreen.
 type TasksState = {
@@ -21,7 +20,7 @@ type TasksState = {
 const initialState: TasksState = {
   tasks: [],
   filter: 'all', // Por defecto, sin filtrar
-  loading: false,
+  loading: true,
   saving: false,
   error: null,
 };
@@ -71,9 +70,12 @@ export const addTask = createAsyncThunk<
   ThunkConfig
 >('tasks/add', async (data, { getState, rejectWithValue }) => {  
   try {
-    // De esta manera, si no hay internet, no envia la peticion
-    if (!(await NetInfo.fetch()).isConnected)
-    return rejectWithValue('Sin conexión. Intentá de nuevo cuando tengas internet.');
+    // Comprobar si hay acceso a Internet
+    if (!(await network())) {
+      return rejectWithValue(
+        'Sin conexión a Internet. Intentá nuevamente cuando tengas conexión.'
+      );
+    }
     const fields = {
       ...data,
       userId: getUid(getState),
@@ -96,9 +98,12 @@ export const toggleTaskStatus = createAsyncThunk<
   const task = (getState() as { tasks: TasksState }).tasks.tasks.find((t) => t.id === id);
   if (!task) return rejectWithValue('La tarea no existe.');
   try {
-    if (!(await NetInfo.fetch()).isConnected)
-    return rejectWithValue('Sin conexión. Intentá de nuevo cuando tengas internet.');
-
+    // Comprobar si hay acceso a Internet
+    if (!(await network())) {
+      return rejectWithValue(
+        'Sin conexión a Internet. Intentá nuevamente cuando tengas conexión.'
+      );
+    }
     await withTimeout(updateDoc(doc(db, 'tasks', id), { completed: !task.completed }));
     return { id, completed: !task.completed };
   } catch {
@@ -110,9 +115,12 @@ export const deleteTask = createAsyncThunk<string, string, ThunkConfig>(
   'tasks/delete',
   async (id, { rejectWithValue }) => {
     try {
-      if (!(await NetInfo.fetch()).isConnected)
-      return rejectWithValue('Sin conexión. Intentá de nuevo cuando tengas internet.');
-    
+      // Comprobar si hay acceso a Internet
+      if (!(await network())) {
+        return rejectWithValue(
+          'Sin conexión a Internet. Intentá nuevamente cuando tengas conexión.'
+        );
+      }
       await withTimeout(deleteDoc(doc(db, 'tasks', id)));
       return id;
     } catch {
@@ -198,7 +206,7 @@ const tasksSlice = createSlice({
         state.tasks = [];
         state.filter = 'all';
         state.error = null;
-        state.loading = false;
+        state.loading = true;
         state.saving = false;
       });
   },

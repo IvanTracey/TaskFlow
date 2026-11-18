@@ -18,12 +18,8 @@ export default function HomeScreen() {
   const navigation = useNavigation<HomeNavProp>();
   const dispatch = useAppDispatch();
 
-  // useAppSelector lee/selecciona datos - cuando state cambia, trae el objeto tasks de state y asigna sus valores internos al array tareas y a la variable filter
-  const { tasks, filter, error } = useAppSelector((state) => state.tasks);
-
- const loading = useAppSelector(
-      (state) => state.tasks.loading
-    );
+  // useAppSelector lee/selecciona datos - cuando state cambia, trae el objeto tasks de state y asigna sus valores a las variables nombradas
+  const { tasks, filter, error, loading } = useAppSelector((state) => state.tasks);
 
   // Carga inicial: al montar la pantalla pedimos a Firestore las tareas del usuario
   useEffect(

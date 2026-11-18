@@ -1,7 +1,7 @@
 import { Alert } from 'react-native';
 import { useRoute, useNavigation, RouteProp } from '@react-navigation/native';
 import { TasksStackParamList } from '../navigation/TasksStack';
-import TaskDetail from '../components/TaskDetail';
+import TaskDetail from './TaskDetail';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import { toggleTaskStatus, deleteTask } from '../store/slices/tasksSlice';
 
