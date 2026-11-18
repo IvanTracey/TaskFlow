@@ -56,7 +56,7 @@ export const styles = StyleSheet.create({
   },
   buttonText: {
     fontWeight: 'bold',
-    fontSize: SIZE.fontSmall,
+    fontSize: SIZE.fontMedium,
   },
   link: {
     marginTop: MARGIN.marginS,
@@ -165,8 +165,8 @@ export const styles = StyleSheet.create({
     gap: 12,
   },
   category: {
-    padding: 16,
     alignItems: 'center',
+    padding: MARGIN.marginS,
     borderWidth: 1,
     borderRadius: 8,
     backgroundColor: COLORS.card,
@@ -180,7 +180,7 @@ export const styles = StyleSheet.create({
     fontSize: SIZE.fontMedium,
   },
   description: {
-    height: 220,
+    height: 160,
     margin: MARGIN.marginXS,
   },
 
@@ -209,9 +209,9 @@ export const styles = StyleSheet.create({
   pending: { color: COLORS.textLight, fontWeight: 'bold' },
 
   toggleButton: {
-    marginTop: MARGIN.marginM,
+    marginTop: MARGIN.marginL*2,
     backgroundColor: COLORS.success,
-    padding: 15,
+    padding: MARGIN.marginS,
     borderRadius: 8,
     alignItems: 'center',
   },
@@ -219,7 +219,7 @@ export const styles = StyleSheet.create({
   deleteButton: {
     marginTop: MARGIN.marginXS,
     backgroundColor: COLORS.danger,
-    padding: 15,
+    padding: MARGIN.marginS,
     borderRadius: 8,
     alignItems: 'center',
   },
