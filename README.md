@@ -32,7 +32,7 @@ En HomeScreen tambien existe una barra horizontal que permite una navegacion tab
 
 <img width="240" height="495" alt="image1" src="https://github.com/user-attachments/assets/e6206600-16ee-42ec-ac70-7c3af90671c4" />
 <img width="240" height="495" alt="image2" src="https://github.com/user-attachments/assets/0bd6951e-28c3-4f2d-bbe6-a0fb23eb0600" />
-<img width="240" height="982" alt="image3" src="https://github.com/user-attachments/assets/6fc811cb-6ffb-4035-b1a8-fcaba3ea1753" />
+<img width="240" height="495" alt="image3" src="https://github.com/user-attachments/assets/6fc811cb-6ffb-4035-b1a8-fcaba3ea1753" />
 <img width="240" height="495" alt="image4" src="https://github.com/user-attachments/assets/915931ce-93de-47e1-857c-6b82a1dcf643" />
 <img width="240" height="495" alt="image5" src="https://github.com/user-attachments/assets/e2786fdd-ded7-40b1-b22d-93240b574cae" />
 <img width="240" height="495" alt="image6" src="https://github.com/user-attachments/assets/c851c70a-cb87-4483-b9f2-c7f2b6a3a606" />
