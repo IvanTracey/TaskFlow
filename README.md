@@ -20,6 +20,8 @@ Si se presiona sobre una de las tareas, se muestra el detalle de la misma (Títu
 
 En HomeScreen tambien existe una barra horizontal que permite una navegacion tab hacia la pantalla de perfiles. En esta se muestra el email de la cuenta abierta, un nombre, una foto con la posibilidad de cambiarla y un boton para poder cerrar sesion. La opción correspondiente a la página actual, posee el color negro.
 
+Sin conexion a internet, se puede navegar por la sesión abierta pero no será capaz de crear una tarea o modificar el estado de una existente, tampoco de crear una cuenta o iniciarla. Esta decisión de programación se realizó para que no se dupliquen acciones, es por eso que se verifica la conexión antes de cualquier vinculación con firestore.
+
 ------------ Imagenes de las pantallas mas importantes
 
 1. Imagen de LoginScreen.
