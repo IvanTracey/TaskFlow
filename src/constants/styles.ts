@@ -33,6 +33,7 @@ export const styles = StyleSheet.create({
     margin: MARGIN.marginXS,
     fontSize: SIZE.fontSmall,
     backgroundColor: COLORS.card,
+    color:COLORS.text,
   },
   errorInput: {
     borderColor: 'red',
