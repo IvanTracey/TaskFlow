@@ -24,7 +24,7 @@ export default function RegisterScreen() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const { mode, colors } = useTheme();
+  const { colors } = useTheme();
   const styles = useStyles();
   // Funcion de validacion (Firebase exige al menos 6 caracteres en la contraseña)
   const validateForm = () => {
@@ -51,7 +51,7 @@ export default function RegisterScreen() {
     }
   };
 
-  // Crea la cuenta en Firebase. Si sale bien no navegamos a mano:
+  // Crea la cuenta en Firebase. 
   // el listener onAuthStateChanged detecta al usuario nuevo y pasa solo al flujo privado.
   const createAccount = async () => {
     setError('');

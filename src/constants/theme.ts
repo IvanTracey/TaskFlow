@@ -32,7 +32,7 @@ export type Palette = typeof light;
 
 const dark: Palette = { 
     screen: '#0F1716',
-    surface: '#1B2827',
+    surface: '#3d6c68',
     text: '#E6F0EF',
     textMuted: '#9DB2B0',
     border: '#34504E',

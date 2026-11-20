@@ -11,7 +11,7 @@ import useProfileImage  from "../hooks/useProfileImage";
 import { useTheme } from "../hooks/useTheme";
 import { setMode } from "../store/slices/themeSlice";
 import { ThemeMode } from "../constants/theme";
-import { saveThemeMode } from "../services/themeStorage";
+import { saveUserTheme } from "../services/userService";
 
 export function ProfileScreen(){
     const user = useAppSelector((state) => state.auth.user);
@@ -28,10 +28,21 @@ export function ProfileScreen(){
         useCallback( () => { leerFoto() }, [leerFoto] ) 
     );
 
-    const handleThemeChange = (isDark: boolean) => {
+    const handleThemeChange = async(isDark: boolean) => {
         const next: ThemeMode = isDark ? 'dark' : 'light';
+        // Actualizamos Redux inmediatamente
         dispatch(setMode(next));
-        saveThemeMode(next);
+        // Guardamos la preferencia en Firestore
+        if (user?.uid) {
+            try {
+                await saveUserTheme(user.uid, next);
+            } catch (error) {
+                Alert.alert(
+                    'No se pudo guardar',
+                    'El modo cambió, pero no pudimos guardar tu preferencia en la nube. Se conservará solamente durante esta sesión.'
+                );
+            }
+        }
     };
     
     // Cierra sesion

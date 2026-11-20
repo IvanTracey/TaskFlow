@@ -15,10 +15,10 @@ Una vez logueado:
 La pantalla principal muestra botones para filtrar las tareas (Todas, pendientes y completadas), el listado de tareas correspondiente a la selección, y en caso de no haber ninguna tarea, un mensaje notificandolo. 
 
 En ella existe el boton "+", donde te envia a otra pantalla (navegacion stack). Allí se puede crear una nueva tarea mediante un formulario. Por defecto, la tarea se crea con la condición de "Pendiente". Se regresa a la pantalla de inicio a partir del guardado de la tarea creada o al presionar sobre una flecha. 
-    
+     
 Si se presiona sobre una de las tareas, se muestra el detalle de la misma (Título, estado, descripción, categoría y fecha). Además de botones con los cuales podes marcar la tarea como "Completada" o eliminarla. Por último, el boton de "Volver" que completa la navegación. 
 
-En HomeScreen tambien existe una barra horizontal que permite una navegacion tab hacia la pantalla de perfiles. En esta se muestra el email de la cuenta abierta, un nombre, una foto con la posibilidad de cambiarla y un boton para poder cerrar sesion. La opción correspondiente a la página actual, posee el color negro.
+En HomeScreen tambien existe una barra horizontal que permite una navegacion tab hacia la pantalla de perfiles. En esta se muestra el email de la cuenta abierta, un nombre, una foto con la posibilidad de cambiarla y un boton para poder cerrar sesion. En dicha pantalla tambien existe la opción de elegir si la app se usa en modo claro u oscuro, cambiando el estilo de todas las pantallas. Por defecto comienza en modo claro, luego recordara la elección del usuario.
 
 Sin conexion a internet, se puede navegar por la sesión abierta pero no será capaz de crear una tarea o modificar el estado de una existente, tampoco de crear una cuenta o iniciarla. Esta decisión de programación se realizó para que no se dupliquen acciones, es por eso que se verifica la conexión antes de cualquier vinculación con firestore.
 

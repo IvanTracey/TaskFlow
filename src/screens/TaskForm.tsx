@@ -26,7 +26,7 @@ export default function TaskForm() {
   const [touchedTitle, setTouchedTitle] = useState(false);
   const [touchedDescription, setTouchedDescription] = useState(false);
 
-  const { mode, colors } = useTheme();
+  const { colors } = useTheme();
   const styles = useStyles();
   //Funcion de validacion
   const validateForm = ()  => {

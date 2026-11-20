@@ -14,9 +14,9 @@ export type TasksStackParamList = {
 
 // Crea un navegador tipo Stack - conecto el navegador con el tipo declarado (TasksStackParamList)
 const Stack = createNativeStackNavigator <TasksStackParamList>()
-const { colors } = useTheme();
 
 export default function TasksStack() {
+    const { colors } = useTheme();
     return(
         <Stack.Navigator
         initialRouteName="TaskList" // Pantalla inicial

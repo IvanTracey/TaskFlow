@@ -10,9 +10,9 @@ export type AuthStackParamList = {
 }
 
 const Stack = createNativeStackNavigator <AuthStackParamList>()
-const { colors } = useTheme();
 
 export default function AuthStack() {
+    const { colors } = useTheme();
     return(
         <Stack.Navigator
         initialRouteName="Login"

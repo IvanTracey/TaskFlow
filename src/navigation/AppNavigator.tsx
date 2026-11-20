@@ -13,9 +13,9 @@ export type RootTabParamList = {
 
 // Crea un navegador tipo Tab (Barra inferior)
 const Tab = createBottomTabNavigator <RootTabParamList>()
-const { colors } = useTheme();
 
 export default function AppNavigator(){
+    const { colors } = useTheme();
 
     return(
         <Tab.Navigator

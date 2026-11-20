@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import EmptyState from '../components/EmptyState';
 import { TasksStackParamList } from '../navigation/TasksStack';
-import {  useStyles} from '../constants/styles';
+import { useStyles } from '../constants/styles';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import { fetchTasks, setFilter } from '../store/slices/tasksSlice';
 import { TaskFilter } from '../constants/types';

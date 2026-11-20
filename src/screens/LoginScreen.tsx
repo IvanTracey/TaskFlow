@@ -20,9 +20,9 @@ export default function LoginScreen() {
   // Error que viene de Firebase (ej. contraseña incorrecta) y se muestra en pantalla
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-
-  const { mode, colors } = useTheme();
+  
   const styles = useStyles();
+  const { mode, colors } = useTheme();
   // Funcion de validacion
   const validateForm = () => {
     return emailRegex.test(email.trim()) && password.length > 0;
