@@ -1,6 +1,6 @@
 import { Text, TouchableOpacity, View } from 'react-native';
 import { Task } from '../constants/types';
-import { styles } from '../constants/styles';
+import { useStyles } from '../constants/styles';
 import {useAppSelector} from '../store/hooks'
 
 type Props = {
@@ -14,10 +14,11 @@ export default function TaskDetail({ task, onBack, onToggle, onDelete  }: Props)
   const saving = useAppSelector(
       (state) => state.tasks.saving
     );
+    const styles = useStyles();
     
   return (
     <View style={styles.container}>
-      <View style={styles.card}>
+      <View style={styles.cardDetail}>
         <Text style={styles.title}>{task.title}</Text>
 
         {/* Mostramos el estado actual (completada / pendiente) */}
@@ -45,10 +46,10 @@ export default function TaskDetail({ task, onBack, onToggle, onDelete  }: Props)
             <Text style={styles.buttonText}>Eliminar tarea</Text>
           </TouchableOpacity>
 
+      </View>
           <TouchableOpacity style={styles.button} onPress={onBack}>
             <Text style={styles.buttonText}>Volver</Text>
           </TouchableOpacity>
-      </View>
     </View>
   );
 }

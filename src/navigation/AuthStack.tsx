@@ -2,7 +2,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
-import { COLORS } from "../constants/theme";
+import { useTheme } from "../hooks/useTheme";
 
 export type AuthStackParamList = {
     Login: undefined;
@@ -12,12 +12,13 @@ export type AuthStackParamList = {
 const Stack = createNativeStackNavigator <AuthStackParamList>()
 
 export default function AuthStack() {
+    const { colors } = useTheme();
     return(
         <Stack.Navigator
         initialRouteName="Login"
         screenOptions={
             {
-            headerStyle: {backgroundColor: COLORS.background},
+            headerStyle: {backgroundColor: colors.screen},
             headerTitleStyle: { fontWeight: "bold" }
             }
         }>

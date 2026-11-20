@@ -5,10 +5,9 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../config/firebaseConfig';
 import { AuthStackParamList } from '../navigation/AuthStack';
-import { styles } from '../constants/styles';
+import { useStyles } from '../constants/styles';
 import { emailRegex } from '../utils/validation'
-
-
+import { useTheme } from "../hooks/useTheme"
 type LoginNavProp = NativeStackNavigationProp<AuthStackParamList, 'Login'>;
 
 export default function LoginScreen() {
@@ -21,7 +20,9 @@ export default function LoginScreen() {
   // Error que viene de Firebase (ej. contraseña incorrecta) y se muestra en pantalla
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-
+  
+  const styles = useStyles();
+  const { mode, colors } = useTheme();
   // Funcion de validacion
   const validateForm = () => {
     return emailRegex.test(email.trim()) && password.length > 0;
@@ -81,6 +82,7 @@ export default function LoginScreen() {
         <TextInput
           style={[styles.input, emailError && styles.errorInput]}
           placeholder="tu@email.com"
+          placeholderTextColor={colors.textMuted}
           value={email}
           onChangeText={setEmail}
           onBlur={() => setTouchedEmail(true)}
@@ -95,6 +97,7 @@ export default function LoginScreen() {
         <TextInput
           style={[styles.input, passwordError && styles.errorInput]}
           placeholder="Contraseña"
+          placeholderTextColor={colors.textMuted}
           value={password}
           onChangeText={setPassword}
           onBlur={() => setTouchedPassword(true)}
