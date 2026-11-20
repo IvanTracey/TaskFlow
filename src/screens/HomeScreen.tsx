@@ -9,7 +9,6 @@ import {  useStyles} from '../constants/styles';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import { fetchTasks, setFilter } from '../store/slices/tasksSlice';
 import { TaskFilter } from '../constants/types';
-import { COLORS } from '../constants/theme';
 
 // Tipamos la navegación para tener autocompletado en navigate()
 type HomeNavProp = NativeStackNavigationProp <TasksStackParamList, 'TaskList'>;
@@ -64,7 +63,7 @@ export default function HomeScreen() {
       </View>
 
       {loading ? 
-        <ActivityIndicator size="large" color={COLORS.text}></ActivityIndicator> : (
+        <ActivityIndicator style={styles.loadingIndicator} size="large" ></ActivityIndicator> : (
         <>
         {/* Si fallo la carga desde Firestore (ej. sin internet) avisamos en pantalla */}
         {error && <Text style={styles.error}>{error}</Text>}

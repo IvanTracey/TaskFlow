@@ -1,15 +1,4 @@
 
-export const COLORS = {
-    primary: "lightseagreen",
-    background: "darkcyan",
-    card: "white",
-    text: 'black',
-    border: 'black',
-    textLight: 'gray',
-    success: 'lightgreen',
-    danger: 'lightgrey',
-}
-
 export const MARGIN = {
     marginXS: 10, 
     marginS: 20, 
@@ -34,7 +23,7 @@ const light = {
     textMuted: '#546E7A',
     border: '#90A4AE',
     accent: '#20a798',
-    onAccent: '#FFFFFF',
+    onAccent: '#0F1F1E',
     success: '#4fa253',
     danger: '#c77b7b',
     error: '#c77b7b',

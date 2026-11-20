@@ -1,12 +1,10 @@
 import { Text, View } from "react-native"
 import { useStyles } from "../constants/styles"
 import { useAppSelector } from "../store/hooks";
-import { useTheme } from "../hooks/useTheme";
 
 export default function EmptyState() {
     const { filter } = useAppSelector((state) => state.tasks);
     
-    const { mode, colors } = useTheme();
     const styles = useStyles();
     return(
         <View style={styles.containerEmpty}>

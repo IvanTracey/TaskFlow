@@ -2,7 +2,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { ProfileScreen } from "../screens/ProfileScreen";
-import { COLORS } from "../constants/theme"
+import { useTheme } from "../hooks/useTheme";
 import TasksStack from "./TasksStack";
 
 // Rutas del Tab raiz
@@ -13,8 +13,10 @@ export type RootTabParamList = {
 
 // Crea un navegador tipo Tab (Barra inferior)
 const Tab = createBottomTabNavigator <RootTabParamList>()
+const { colors } = useTheme();
 
 export default function AppNavigator(){
+
     return(
         <Tab.Navigator
         // Route es el parametro para que sepa que icon usar
@@ -22,8 +24,8 @@ export default function AppNavigator(){
             // No muestro este header porque lo proporciona cada Stack
             headerShown: false,
             // Dar color al pasar por encima
-            tabBarActiveTintColor: COLORS.text,
-            tabBarInactiveTintColor: COLORS.background,
+            tabBarActiveTintColor: colors.text,
+            tabBarInactiveTintColor: colors.textMuted,
             tabBarIcon: ({ color, size }) => {
             // Definimos el icono según la pestaña activa
                 const iconName = route.name === "Home" ? "list-outline" : "person-outline";

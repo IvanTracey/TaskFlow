@@ -1,4 +1,4 @@
-import { COLORS, MARGIN, SIZE, Palette, PALETTES } from '../constants/theme';
+import { MARGIN, SIZE, Palette } from '../constants/theme';
 import { StyleSheet } from 'react-native';
 import { useTheme } from '../hooks/useTheme';
 import { useMemo } from 'react';
@@ -68,7 +68,7 @@ export const createStyles = (c: Palette) =>  StyleSheet.create({
     fontWeight: 'bold',
     alignItems: 'center',   
     fontSize: SIZE.fontSmall,
-    color: c.text,
+    color: c.onAccent,
   },
   link: {
     marginTop: MARGIN.marginS,
@@ -128,7 +128,8 @@ export const createStyles = (c: Palette) =>  StyleSheet.create({
     paddingVertical: MARGIN.marginXS,
     alignItems: 'center',
     borderRadius: 8,
-    backgroundColor: c.accent,
+    backgroundColor: c.surface,
+    borderColor: c.textMuted,
   },
   filterActive: {
     backgroundColor: c.accent,
@@ -138,7 +139,7 @@ export const createStyles = (c: Palette) =>  StyleSheet.create({
   filterTextActive: {
     fontWeight: 'bold',
     fontSize: SIZE.fontSmall,
-    color: c.text,
+    color: c.onAccent,
   },
   card: {
     padding: MARGIN.marginS,
@@ -179,6 +180,12 @@ export const createStyles = (c: Palette) =>  StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     alignSelf: 'center',
+  },
+  loadingIndicator:{ 
+    flex: 1, 
+    alignItems: 'center', 
+    justifyContent: 'center',
+    color: c.onAccent,
   },
 
   // Adicionales de TaskForm
@@ -237,7 +244,7 @@ export const createStyles = (c: Palette) =>  StyleSheet.create({
     logoutText: {
         fontWeight: 'bold',
         fontSize: SIZE.fontMedium,
-        color: c.text,
+        color: c.onAccent,
     },
 
     // Adicionales de TaskDetail
@@ -275,6 +282,6 @@ export const createStyles = (c: Palette) =>  StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: COLORS.background,
+    backgroundColor: c.screen,
   },
 });

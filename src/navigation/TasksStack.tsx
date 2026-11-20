@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "../screens/HomeScreen";
 import TaskDetailScreen from "../screens/TaskDetailScreen";
 import TaskForm from "../screens/TaskForm";
-import { COLORS } from "../constants/theme";
+import { useTheme } from "../hooks/useTheme";
 
 
 export type TasksStackParamList = {
@@ -14,6 +14,7 @@ export type TasksStackParamList = {
 
 // Crea un navegador tipo Stack - conecto el navegador con el tipo declarado (TasksStackParamList)
 const Stack = createNativeStackNavigator <TasksStackParamList>()
+const { colors } = useTheme();
 
 export default function TasksStack() {
     return(
@@ -22,7 +23,8 @@ export default function TasksStack() {
         screenOptions={     // Configura opciones comunes a todas las pantallas
             // Las primeras llaves pertenecen a JSX y las segundas a un objeto
             {
-            headerStyle: {backgroundColor: COLORS.background},
+            headerStyle: {backgroundColor: colors.accent},
+            headerTintColor: colors.onAccent,
             headerTitleStyle: { fontWeight: "bold" }
             }
         }>

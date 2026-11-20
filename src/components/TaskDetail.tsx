@@ -2,7 +2,6 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { Task } from '../constants/types';
 import { useStyles } from '../constants/styles';
 import {useAppSelector} from '../store/hooks'
-import { useTheme } from '../hooks/useTheme';
 
 type Props = {
   task: Task; 
@@ -15,7 +14,6 @@ export default function TaskDetail({ task, onBack, onToggle, onDelete  }: Props)
   const saving = useAppSelector(
       (state) => state.tasks.saving
     );
-    const { mode, colors } = useTheme();
     const styles = useStyles();
     
   return (

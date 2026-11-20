@@ -1,14 +1,13 @@
 import { View, Text, TouchableOpacity, Alert, Switch } from "react-native"
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { useFocusEffect} from "@react-navigation/native";
-import { createStyles, useStyles} from '../constants/styles';
+import { useStyles} from '../constants/styles';
 import { ProfileCard } from "../components/ProfileCards"
 import { SafeAreaView  } from 'react-native-safe-area-context';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import { signOut } from "firebase/auth";
 import { auth } from "../config/firebaseConfig";
-import useProfileImage  from "../hooks/useProfileImage"
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import useProfileImage  from "../hooks/useProfileImage";
 import { useTheme } from "../hooks/useTheme";
 import { setMode } from "../store/slices/themeSlice";
 import { ThemeMode } from "../constants/theme";
