@@ -5,8 +5,8 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { TasksStackParamList } from '../navigation/TasksStack';
 import { useAppDispatch, useAppSelector  } from '../store/hooks';
 import { addTask } from '../store/slices/tasksSlice';
-import { styles } from '../constants/styles';
-
+import { useStyles } from '../constants/styles';
+import { useTheme } from "../hooks/useTheme"
 
 type TaskFormNavProp = NativeStackNavigationProp <TasksStackParamList, 'TaskForm'>;
 
@@ -26,6 +26,8 @@ export default function TaskForm() {
   const [touchedTitle, setTouchedTitle] = useState(false);
   const [touchedDescription, setTouchedDescription] = useState(false);
 
+  const { mode, colors } = useTheme();
+  const styles = useStyles();
   //Funcion de validacion
   const validateForm = ()  => {
     if (title.trim().length < 5 || description.trim().length < 10) {
@@ -87,6 +89,7 @@ export default function TaskForm() {
           // Aplica el estilo base, y si hay error, le suma el borde rojo
             style={[styles.input, titleError && styles.errorInput,]}
             placeholder="Título de la tarea"
+            placeholderTextColor={colors.textMuted}
             value={title}
             //Captura el cambio y envia
             onChangeText={setTitle} 
@@ -109,6 +112,7 @@ export default function TaskForm() {
           <TextInput //Para añadir estilos uso un array
             style={[styles.input, styles.description, descriptionError && styles.errorInput]}
             placeholder="Descripción"
+            placeholderTextColor={colors.textMuted}
             value={description}
             onChangeText={setDescription}
             onBlur={() => setTouchedDescription(true)}

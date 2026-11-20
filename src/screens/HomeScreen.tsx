@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import EmptyState from '../components/EmptyState';
 import { TasksStackParamList } from '../navigation/TasksStack';
-import { styles } from '../constants/styles';
+import {  useStyles} from '../constants/styles';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import { fetchTasks, setFilter } from '../store/slices/tasksSlice';
 import { TaskFilter } from '../constants/types';
@@ -17,7 +17,7 @@ type HomeNavProp = NativeStackNavigationProp <TasksStackParamList, 'TaskList'>;
 export default function HomeScreen() {
   const navigation = useNavigation<HomeNavProp>();
   const dispatch = useAppDispatch();
-
+  const styles = useStyles();
   // useAppSelector lee/selecciona datos - cuando state cambia, trae el objeto tasks de state y asigna sus valores a las variables nombradas
   const { tasks, filter, error, loading } = useAppSelector((state) => state.tasks);
 
@@ -56,7 +56,7 @@ export default function HomeScreen() {
             // Despacho/envio accion al store
             onPress={() => dispatch(setFilter(f))}
           >
-            <Text style={filter === f ? styles.filterTextActive : styles.btnText}>
+            <Text style={filter === f ? styles.filterTextActive : styles.buttonText}>
               {f === 'all' ? 'Todas' : f === 'pending' ? 'Pendientes' : 'Completadas'}
             </Text>
           </TouchableOpacity>
@@ -64,7 +64,7 @@ export default function HomeScreen() {
       </View>
 
       {loading ? 
-        <ActivityIndicator size="large" color={COLORS.primary}></ActivityIndicator> : (
+        <ActivityIndicator size="large" color={COLORS.text}></ActivityIndicator> : (
         <>
         {/* Si fallo la carga desde Firestore (ej. sin internet) avisamos en pantalla */}
         {error && <Text style={styles.error}>{error}</Text>}

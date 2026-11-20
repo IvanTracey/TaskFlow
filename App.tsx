@@ -6,6 +6,8 @@ import { store } from './src/store/store';
 import { auth } from './src/config/firebaseConfig';
 import { setSession, clearSession } from './src/store/slices/authSlice';
 import RootNavigator from './src/navigation/RootNavigator';
+import { setMode } from './src/store/slices/themeSlice';
+import { loadThemeMode } from './src/services/themeStorage';
 
 export default function App() {
   useEffect(() => {
@@ -27,6 +29,13 @@ export default function App() {
     });
 
     return unsubscribe;
+  }, []);
+  
+  // Verifica si existe una eleccion del modo 
+  useEffect(() => {
+    loadThemeMode().then((saved) => {
+      if (saved) store.dispatch(setMode(saved));
+    });
   }, []);
 
   return (

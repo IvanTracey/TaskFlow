@@ -5,8 +5,9 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../config/firebaseConfig';
 import { AuthStackParamList } from '../navigation/AuthStack';
-import { styles } from '../constants/styles';
+import { useStyles } from '../constants/styles';
 import { emailRegex } from '../utils/validation';
+import { useTheme } from "../hooks/useTheme"
 
 type RegisterNavProp = NativeStackNavigationProp<AuthStackParamList, 'Register'>;
 
@@ -23,6 +24,8 @@ export default function RegisterScreen() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const { mode, colors } = useTheme();
+  const styles = useStyles();
   // Funcion de validacion (Firebase exige al menos 6 caracteres en la contraseña)
   const validateForm = () => {
     return (
@@ -86,6 +89,7 @@ export default function RegisterScreen() {
         <TextInput
           style={[styles.input, emailError && styles.errorInput]}
           placeholder="tu@email.com"
+          placeholderTextColor={colors.textMuted}
           value={email}
           onChangeText={setEmail}
           onBlur={() => setTouchedEmail(true)}
@@ -100,6 +104,7 @@ export default function RegisterScreen() {
         <TextInput
           style={[styles.input, passwordError && styles.errorInput]}
           placeholder="Mínimo 6 caracteres"
+          placeholderTextColor={colors.textMuted}
           value={password}
           onChangeText={setPassword}
           onBlur={() => setTouchedPassword(true)}
@@ -114,6 +119,7 @@ export default function RegisterScreen() {
         <TextInput
           style={[styles.input, confirmError && styles.errorInput]}
           placeholder="Repite la contraseña"
+          placeholderTextColor={colors.textMuted}
           value={confirm}
           onChangeText={setConfirm}
           onBlur={() => setTouchedConfirm(true)}

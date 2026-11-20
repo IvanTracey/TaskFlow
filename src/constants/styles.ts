@@ -1,14 +1,21 @@
-import { COLORS, MARGIN, SIZE } from '../constants/theme';
+import { COLORS, MARGIN, SIZE, Palette, PALETTES } from '../constants/theme';
 import { StyleSheet } from 'react-native';
+import { useTheme } from '../hooks/useTheme';
+import { useMemo } from 'react';
+
+export const useStyles = () => {
+  const { colors } = useTheme();
+  return useMemo(() => createStyles(colors), [colors]);
+};
 
 
-export const styles = StyleSheet.create({
+export const createStyles = (c: Palette) =>  StyleSheet.create({
 // Estilos de Log In y Register Screen
   container: {
     flex: 1,
     padding: MARGIN.marginS,
     justifyContent: 'space-between',
-    backgroundColor: COLORS.primary,
+    backgroundColor: c.screen,
   },
   sector: {
     margin: MARGIN.marginS,
@@ -18,27 +25,30 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: MARGIN.marginM,
     alignSelf: 'center',
+    color: c.text,
   },
   label: {
     fontSize: SIZE.fontMedium,
     fontWeight: 'bold',
     marginTop: MARGIN.marginS,
     marginBottom: MARGIN.marginXS,
+    color: c.text,
   },
   input: {
     borderWidth: 1,
     height: 60,
-    borderColor: COLORS.textLight,
+    borderColor: c.textMuted,
     borderRadius: 8,
     margin: MARGIN.marginXS,
     fontSize: SIZE.fontSmall,
-    backgroundColor: COLORS.card,
+    backgroundColor: c.surface,
+    color: c.text,
   },
   errorInput: {
-    borderColor: 'red',
+    borderColor: c.error,
   },
   error: {
-    color: 'red',
+    color: c.error,
     fontSize: 14,
     fontWeight: 'bold',
     marginTop: 4,
@@ -46,7 +56,7 @@ export const styles = StyleSheet.create({
   button: {
     marginTop: MARGIN.marginL,
     padding: MARGIN.marginM,
-    backgroundColor: COLORS.background,
+    backgroundColor: c.accent,
     borderRadius: 8,
     borderWidth: 1,
     alignItems: 'center',   
@@ -56,7 +66,9 @@ export const styles = StyleSheet.create({
   },
   buttonText: {
     fontWeight: 'bold',
+    alignItems: 'center',   
     fontSize: SIZE.fontSmall,
+    color: c.text,
   },
   link: {
     marginTop: MARGIN.marginS,
@@ -66,23 +78,35 @@ export const styles = StyleSheet.create({
     fontSize: SIZE.fontSmall,
     fontWeight: 'bold',
     marginBottom: MARGIN.marginS,
+    color: c.text,
   },
 
   // Adicionales de ProfileCards
   cardUser: {
     alignItems: 'center',
-    backgroundColor: COLORS.card,
+    backgroundColor: c.surface,
     borderRadius: 16,
     paddingVertical: MARGIN.marginL*2,
     margin: MARGIN.marginM,
     borderWidth: 1,
-    borderColor: COLORS.border,
+    borderColor: c.border,
+  },
+  cardMode: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    backgroundColor: c.surface,
+    borderRadius: 16,
+    padding: MARGIN.marginXS,
+    marginHorizontal: MARGIN.marginL*2,
+    borderWidth: 1,
+    borderColor: c.border,
   },
   
   name: {
     fontSize: SIZE.fontMedium,
     fontWeight: 'bold',
-    color: COLORS.text,
+    color: c.text,
     margin: MARGIN.marginS,
   },
   avatar: { 
@@ -90,7 +114,7 @@ export const styles = StyleSheet.create({
     height: 120, 
     borderRadius: 60, 
     borderWidth: 2.5, 
-    borderColor: COLORS.primary 
+    borderColor: c.screen 
   },
 
   // Adicionales de HomeScreen
@@ -104,40 +128,38 @@ export const styles = StyleSheet.create({
     paddingVertical: MARGIN.marginXS,
     alignItems: 'center',
     borderRadius: 8,
-    backgroundColor: COLORS.background,
+    backgroundColor: c.accent,
   },
   filterActive: {
-    backgroundColor: COLORS.background,
+    backgroundColor: c.accent,
     borderWidth: 1,
-    borderColor: COLORS.border,
+    borderColor: c.border,
   },
   filterTextActive: {
     fontWeight: 'bold',
     fontSize: SIZE.fontSmall,
-  },
-  btnText:{
-    alignItems: 'center',
-    fontSize: SIZE.fontSmall,
+    color: c.text,
   },
   card: {
     padding: MARGIN.marginS,
     marginBottom: 6,
-    backgroundColor: COLORS.card,
+    backgroundColor: c.surface,
     borderWidth: 1,
-    borderColor: COLORS.textLight,
+    borderColor: c.textMuted,
     borderRadius: 8,
   },
   taskTitle: {
     fontSize: SIZE.fontMedium,
     fontWeight: 'bold',
     marginBottom: 5,
+    color: c.text,
   },
   taskTitleDone: {
     textDecorationLine: 'line-through',
-    color: COLORS.textLight,
+    color: c.textMuted,
   },
   taskCategory: {
-    color: COLORS.textLight,
+    color: c.textMuted,
   },
   fab: {
     borderRadius: 14,
@@ -146,14 +168,14 @@ export const styles = StyleSheet.create({
     paddingVertical: 10,
     position: 'absolute', 
     bottom: 30, 
-    backgroundColor: COLORS.background,
+    backgroundColor: c.accent,
     alignSelf: 'center',
     justifyContent: 'center',
     elevation: 4,
     borderWidth: 1,
   },
   fabText: {
-    color: COLORS.border,
+    color: c.text,
     fontSize: 30,
     fontWeight: 'bold',
     alignSelf: 'center',
@@ -169,15 +191,29 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderRadius: 8,
-    backgroundColor: COLORS.card,
-    borderColor: COLORS.textLight,
+    backgroundColor: c.surface,
+    borderColor: c.textMuted,
   },
   selectedCategory: {
-    backgroundColor: COLORS.background,
-    borderColor: COLORS.border,
+    backgroundColor: c.accent,
+    borderColor: c.border,
+  },
+  cardDetail: {
+    padding: MARGIN.marginS,
+    marginBottom: MARGIN.marginL,
+    backgroundColor: c.surface,
+    borderWidth: 1,
+    borderColor: c.textMuted,
+    borderRadius: 8,
   },
   text: {
     fontSize: SIZE.fontMedium,
+    color: c.text,
+  },
+  subtext: {
+    fontSize: SIZE.fontSmall,
+    paddingVertical: MARGIN.marginXS,
+    color: c.text,
   },
   description: {
     height: 220,
@@ -187,13 +223,13 @@ export const styles = StyleSheet.create({
   // Adicionales de ProfileScreen
     log: {
         flex: 1,
-        backgroundColor: COLORS.primary,
+        backgroundColor: c.screen,
         padding: MARGIN.marginS,
         justifyContent: 'space-between',
     },
     logoutButton: {
         padding: MARGIN.marginS,
-        backgroundColor: COLORS.background,
+        backgroundColor: c.accent,
         borderRadius: 8,
         borderWidth: 1,
         alignItems: 'center',
@@ -201,16 +237,17 @@ export const styles = StyleSheet.create({
     logoutText: {
         fontWeight: 'bold',
         fontSize: SIZE.fontMedium,
+        color: c.text,
     },
 
     // Adicionales de TaskDetail
     // ✅ Estilos para marcar visualmente el estado
-  done: { color: COLORS.success, fontWeight: 'bold' },
-  pending: { color: COLORS.textLight, fontWeight: 'bold' },
+  done: { color: c.success, fontWeight: 'bold' },
+  pending: { color: c.textMuted, fontWeight: 'bold' },
 
   toggleButton: {
     marginTop: MARGIN.marginM,
-    backgroundColor: COLORS.success,
+    backgroundColor: c.success,
     padding: 15,
     borderRadius: 8,
     alignItems: 'center',
@@ -218,7 +255,7 @@ export const styles = StyleSheet.create({
 
   deleteButton: {
     marginTop: MARGIN.marginS,
-    backgroundColor: COLORS.danger,
+    backgroundColor: c.danger,
     padding: 15,
     borderRadius: 8,
     alignItems: 'center',
@@ -233,4 +270,11 @@ export const styles = StyleSheet.create({
     paddingBottom: 300,
   },
 
+
+  loading: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: COLORS.background,
+  },
 });
